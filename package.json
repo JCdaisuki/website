@@ -1,0 +1,20 @@
+{
+  "name": "jcdaisuki-website",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/three": "^0.175.0",
+    "vite": "^6.3.1"
+  },
+  "dependencies": {
+    "gsap": "^3.12.7",
+    "sass": "^1.86.3",
+    "three": "^0.175.0"
+  }
+}
