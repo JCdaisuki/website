@@ -14,7 +14,8 @@ const sizes =
 const modals = 
 {
   about: document.querySelector(".modal.about"),
-  projects: document.querySelector(".modal.projects")
+  projects: document.querySelector(".modal.projects"),
+  contact: document.querySelector(".modal.contact")
 }
 
 document.querySelectorAll(".modal-exit-button").forEach(button => 
@@ -144,6 +145,10 @@ function handleRaycasterInteraction()
     {
       showModal(modals.projects);
     }
+    else if(object.name.includes('Contact'))
+    {
+      showModal(modals.contact);
+    }
   }
 }
 
@@ -153,7 +158,7 @@ window.addEventListener("touchend", (event) =>
   {
     return;
   }
-  
+
   event.preventDefault();
   pointer.x = (event.touches[0].clientX / sizes.width) * 2 - 1;
   pointer.y = -(event.touches[0].clientY / sizes.height) * 2 + 1;
@@ -169,6 +174,8 @@ window.addEventListener("click", (event) =>
 {
   handleRaycasterInteraction();
 })
+
+let jcdaisuki, about, projects, contact;
 
 loader.load("/models/scene.glb", (glb) =>
 {
@@ -201,7 +208,7 @@ loader.load("/models/scene.glb", (glb) =>
         }
       })
     }
-
+    
     if(child.isCamera)
     {
       glbCamera = child;
@@ -209,7 +216,7 @@ loader.load("/models/scene.glb", (glb) =>
 
     scene.add(glb.scene);
 
-    if (glbCamera)
+    if(glbCamera)
     {
       camera.position.copy(glbCamera.position);
       camera.rotation.copy(glbCamera.rotation);
