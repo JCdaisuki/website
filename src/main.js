@@ -2,6 +2,7 @@ import './style.scss'
 import * as THREE from 'three';
 import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js'
 import { GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+import gsap from "gsap"
 
 const canvas = document.querySelector("#experience-canvas");
 const sizes = 
@@ -10,6 +11,24 @@ const sizes =
   height: window.innerHeight
 }
 
+const modals = 
+{
+  about: document.querySelector(".modal.about"),
+  about: document.querySelector(".modal.projects")
+}
+
+const showModal = (modal) =>
+{
+  modal.style.display = "block";
+
+  gsap.set(modal, {opacity: 0});
+  gsap.to(modal, {opacity: 1, duration: 0.5});
+}
+
+const hideModal = (modal) =>
+{
+  gsap.to(modal, {opacity: 0, duration: 0.5, onComplete: () => {modal.style.display = "none";}});
+}
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, sizes.width / sizes.height, 0.1, 1000 );
@@ -71,6 +90,28 @@ Object.entries(textureMap).forEach(([key, paths])=>
   loadedTextures.day[key] = dayTexture;
 })
 
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+
+window.addEventListener('mousemove', (event) => 
+{
+  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+});
+
+const raycasterObjects = [];
+let currentIntersects = [];
+
+window.addEventListener("click", (event) => 
+{
+  if(currentIntersects.length > 0)
+  {
+    const object = currentIntersects[0].object;
+
+
+  }
+})
+
 loader.load("/models/scene.glb", (glb) =>
 {
   let glbCamera = null;
@@ -79,6 +120,11 @@ loader.load("/models/scene.glb", (glb) =>
   {
     if(child.isMesh)
     {
+      if(child.name.includes("Raycaster"))
+      {
+        raycasterObjects.push(child);
+      }
+      
       Object.keys(textureMap).forEach((key) =>
       {
         if(child.name.includes(key))
@@ -104,6 +150,7 @@ loader.load("/models/scene.glb", (glb) =>
     {
       camera.position.copy(glbCamera.position);
       camera.rotation.copy(glbCamera.rotation);
+      camera.scale.copy(glbCamera.scale);
       camera.fov = glbCamera.fov;
       camera.near = glbCamera.near;
       camera.far = glbCamera.far;
@@ -126,6 +173,21 @@ window.addEventListener("resize", () =>
 
 const render = () =>
 {
+  raycaster.setFromCamera(pointer, camera);
+
+  currentIntersects = raycaster.intersectObjects(raycasterObjects);
+
+  if(currentIntersects.length > 0)
+  {
+    document.body.style.cursor = "pointer";
+  }
+  else
+  {
+    document.body.style.cursor = "default";
+  }
+
+  
+
   renderer.render( scene, camera );
 
   window.requestAnimationFrame(render);
