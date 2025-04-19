@@ -4,9 +4,6 @@ import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js'
 import { GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import gsap from "gsap"
 
-const mixers = [];
-const clock = new THREE.Clock();
-
 const canvas = document.querySelector("#experience-canvas");
 const sizes = 
 {
@@ -219,16 +216,6 @@ loader.load("/models/scene.glb", (glb) =>
 
     scene.add(glb.scene);
 
-    if (glb.animations && glb.animations.length > 0) {
-      const mixer = new THREE.AnimationMixer(glb.scene);
-      glb.animations.forEach((clip) => {
-        const action = mixer.clipAction(clip);
-        action.setLoop(THREE.LoopRepeat);
-        action.play();
-      });
-      mixers.push(mixer);
-    }
-
     if(glbCamera)
     {
       camera.position.copy(glbCamera.position);
@@ -280,52 +267,46 @@ function playHoverAnimation(object, isHovering)
   }
 }
 
-const delta = clock.getDelta();
-mixers.forEach((mixer) => mixer.update(delta));
-
 const render = () =>
+{
+  if(!isModalOpen)
   {
-    if(!isModalOpen)
+    raycaster.setFromCamera(pointer, camera);
+
+    currentIntersects = raycaster.intersectObjects(raycasterObjects);
+    
+    if(currentIntersects.length > 0)
     {
-      raycaster.setFromCamera(pointer, camera);
-  
-      currentIntersects = raycaster.intersectObjects(raycasterObjects);
-      
-      if(currentIntersects.length > 0)
-      {
-        const currentIntersectObject = currentIntersects[0].object;
-  
-        if(currentIntersectObject !== currentHoveredObject)
-        {
-          if(currentHoveredObject)
-          {
-            playHoverAnimation(currentHoveredObject, false);
-          }
-  
-          playHoverAnimation(currentIntersectObject, true);
-          currentHoveredObject = currentIntersectObject;
-        }
-  
-        document.body.style.cursor = "pointer";
-      }
-      else
+      const currentIntersectObject = currentIntersects[0].object;
+
+      if(currentIntersectObject !== currentHoveredObject)
       {
         if(currentHoveredObject)
         {
           playHoverAnimation(currentHoveredObject, false);
-          currentHoveredObject = null;
         }
-  
-        document.body.style.cursor = "default";
-      }  
+
+        playHoverAnimation(currentIntersectObject, true);
+        currentHoveredObject = currentIntersectObject;
+      }
+
+      document.body.style.cursor = "pointer";
     }
-  
-    const delta = clock.getDelta();
-    mixers.forEach((mixer) => mixer.update(delta));
-  
-    renderer.render( scene, camera );
-  
-    window.requestAnimationFrame(render);
+    else
+    {
+      if(currentHoveredObject)
+      {
+        playHoverAnimation(currentHoveredObject, false);
+        currentHoveredObject = null;
+      }
+
+      document.body.style.cursor = "default";
+    }  
   }
+
+  renderer.render( scene, camera );
+
+  window.requestAnimationFrame(render);
+}
 
 render()
