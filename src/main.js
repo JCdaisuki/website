@@ -16,7 +16,8 @@ const modals =
 {
   about: document.querySelector(".modal.about"),
   projects: document.querySelector(".modal.projects"),
-  contact: document.querySelector(".modal.contact")
+  contact: document.querySelector(".modal.contact"),
+  credits: document.querySelector(".modal.credits")
 }
 
 document.querySelectorAll(".modal-exit-button").forEach(button => 
@@ -163,6 +164,10 @@ function handleRaycasterInteraction()
     {
       showModal(modals.contact);
     }
+    else if(object.name.includes('Credits'))
+    {
+      showModal(modals.credits);
+    }
   }
 }
 
@@ -188,8 +193,6 @@ window.addEventListener("click", (event) =>
 {
   handleRaycasterInteraction();
 })
-
-let jcdaisuki, about, projects, contact;
 
 loader.load("/models/scene.glb", (glb) =>
 {
