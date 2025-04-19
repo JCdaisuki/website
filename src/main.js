@@ -1,5 +1,6 @@
 import './style.scss'
 import * as THREE from 'three';
+import { OrbitControls } from './utils/OrbitControls.js';
 import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js'
 import { GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import gsap from "gsap"
@@ -31,6 +32,7 @@ const showModal = (modal) =>
 {
   modal.style.display = "block";
   isModalOpen = true;
+  controls.enabled = false;
 
   if(currentHoveredObject)
   {
@@ -48,15 +50,27 @@ const showModal = (modal) =>
 const hideModal = (modal) =>
 {
   isModalOpen = false;
+  controls.enabled = true;
   gsap.to(modal, {opacity: 0, duration: 0.5, onComplete: () => {modal.style.display = "none";}});
 }
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, sizes.width / sizes.height, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera( 50, sizes.width / sizes.height, 0.1, 1000 );
 
 const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias: true});
 renderer.setSize( sizes.width, sizes.height );
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.minDistance = 15;
+controls.maxDistance = 35;
+controls.minPolarAngle = 0;
+controls.maxPolarAngle = Math.PI / 2;
+
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
+controls.update();
 
 document.body.appendChild( renderer.domElement );
 
@@ -219,11 +233,7 @@ loader.load("/models/scene.glb", (glb) =>
     if(glbCamera)
     {
       camera.position.copy(glbCamera.position);
-      camera.rotation.copy(glbCamera.rotation);
       camera.scale.copy(glbCamera.scale);
-      camera.fov = glbCamera.fov;
-      camera.near = glbCamera.near;
-      camera.far = glbCamera.far;
       camera.updateProjectionMatrix();
     }
   });
@@ -269,6 +279,8 @@ function playHoverAnimation(object, isHovering)
 
 const render = () =>
 {
+  controls.update();
+  
   if(!isModalOpen)
   {
     raycaster.setFromCamera(pointer, camera);
