@@ -9,3 +9,10 @@ style
     display: flex;
     justify-content: center;
 }
+
+@mixin centered 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
