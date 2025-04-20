@@ -8,6 +8,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Cherry Bomb One';
+  color: vars.$base-black;
 }
 
 canvas {
@@ -19,8 +20,6 @@ canvas {
 
 :root 
 {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -48,7 +47,7 @@ canvas {
   position: absolute;
   top: 50%;
   left: 50%;
-  max-width: 700px;
+  //max-width: 700px;
   width: 100%;
   transform: translate(-50%, -50%);
   font-size: 32px;
@@ -57,7 +56,14 @@ canvas {
   background-color: vars.$base-white;
 }
 
-.modal-exit-button {
+.modal-title
+{
+  text-align: center;
+  font-size: 1.25em;
+}
+
+.modal-exit-button 
+{
   @include vars.centered;
   position: absolute;
   top: -2.3rem;
@@ -75,4 +81,80 @@ canvas {
   &:hover {
     transform: rotate(5deg) scale(1.2);
   }
+}
+
+.scroll-wrapper 
+{
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.scroll-container 
+{
+  width: 700px;
+  height: 400px;
+  border: 2px solid vars.$darker-pink;
+  border-radius: 1.2rem;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: vars.$base-blue;
+  margin-right: 1%;
+}
+
+.card 
+{
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.image 
+{
+  background-color: #eee;
+  border: 2px solid vars.$even-softer-black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+  font-weight: bold;
+}
+
+.certificate-img 
+{
+  width: 150px;
+  height: 150px;
+  object-fit: cover; 
+}
+
+.content 
+{
+  max-width: 500px;
+}
+
+.title 
+{
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.description
+{
+  font-size: 0.75em;
+  color: vars.$softer-black;
+  margin-top: 10px;
+}
+
+.more-description
+{
+  font-size: 0.5em;
+  color: vars.$even-softer-black;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.skills 
+{
+  margin-top: 5px;
+  font-size: 0.5em;
 }
