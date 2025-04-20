@@ -154,9 +154,15 @@
 
       <hr style="width: 75%; margin: auto;">
 
-      <div>
+      <div style="text-align: center; margin-top: 1%; margin-bottom: 1%;">
         <input type="text" value="JuanCarlosGMgo@gmail.com" id="email" readonly>
-        <button onclick="copyText()">Copy text</button>
+        <button onclick="copyText()">
+          <span class="button_top">
+            <div style="color:rgb(62, 62, 62)">
+              Copy email
+            </div>
+          </span>
+        </button>
 
         <script>
           function copyText() 
@@ -169,6 +175,24 @@
             navigator.clipboard.writeText(copyText.value);
           }
         </script>
+
+        <div class="social-container">
+          <a href="https://twitter.com/JCdaisuki0" target="_blank">
+            <img class="logo" src="public/images/x.jpg" alt="X" />
+          </a>
+          
+          <a href="https://www.instagram.com/jcdaisuki/" target="_blank">
+            <img class="logo" src="public/images/ig.jpg" alt="Instagram" />
+          </a>
+          
+          <a href="https://github.com/JCdaisuki" target="_blank">
+            <img class="logo" src="public/images/git.jpg" alt="GitHub" />
+          </a>
+          
+          <a href="https://www.linkedin.com/in/jcdaisuki/" target="_blank">
+            <img class="logo" src="public/images/lk.jpg" alt="linkedin" />
+          </a>
+        </div>
       </div>
 
       <div class="modal-exit-button">

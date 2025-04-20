@@ -1,5 +1,6 @@
 @use "./styles/fonts.scss";
 @use "./styles/reset.scss";
+@use "./styles/button.scss";
 @use "./styles/variables.scss" as vars;
 
 *
@@ -125,6 +126,27 @@ canvas {
   font-weight: bold;
 }
 
+.social-container {
+  display: grid;
+  grid-template-columns: repeat(2, 80px); /* 2 columnas fijas de 80px */
+  justify-content: center; /* Centra las columnas horizontalmente */
+  gap: 20px 40px; /* espacio entre filas y columnas */
+  margin: 20px auto;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 1.2rem;
+  background-color: #eee;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
 .certificate-img 
 {
   width: 150px;
@@ -162,4 +184,12 @@ canvas {
 {
   margin-top: 5px;
   font-size: 0.5em;
+}
+
+input
+{
+  font-size: 0.5em;
+  width: 250px;
+  height: 50px;
+  text-align: center;
 }
