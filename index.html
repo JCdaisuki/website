@@ -38,7 +38,7 @@
 
           <div class="card">
             <div class="image">
-              <img class="certificate-img" src="public\images\uja.jpg" alt="University of Jaén" />
+              <img class="certificate-img" src="public/images/uja.jpg" alt="University of Jaén" />
             </div>
             <div class="content">
               <div class="title">University of Jaén</div>
@@ -54,7 +54,7 @@
 
           <div class="card">
             <div class="image">
-              <img class="certificate-img" src="public\images\ritsu.jpg" alt="Ritsumeikan University" />
+              <img class="certificate-img" src="public/images/ritsu.jpg" alt="Ritsumeikan University" />
             </div>
             <div class="content">
               <div class="title">Ritsumeikan University</div>
@@ -78,7 +78,7 @@
 
           <div class="card">
             <div class="image">
-              <img class="certificate-img" src="public\images\nico.jpg" alt="University of Nicosia" />
+              <img class="certificate-img" src="public/images/nico.jpg" alt="University of Nicosia" />
             </div>
             <div class="content">
               <div class="title">
@@ -98,7 +98,7 @@
 
           <div class="card">
             <div class="image">
-              <img class="certificate-img" src="public\images\camb.jpg" alt="Cambridge University Press and Assessment English" />
+              <img class="certificate-img" src="public/images/camb.jpg" alt="Cambridge University Press and Assessment English" />
             </div>
             <div class="content">
               <div class="title">C1 Advanced</div>
@@ -114,7 +114,7 @@
         
           <div class="card">
             <div class="image">
-              <img class="certificate-img" src="public\images\mini.jpg" alt="Ministère de l'Éducation nationale" />
+              <img class="certificate-img" src="public/images/mini.jpg" alt="Ministère de l'Éducation nationale" />
             </div>
             <div class="content">
               <div class="title">DELF B1</div>
@@ -143,13 +143,35 @@
       </div>
     </div>
 
-    <div class="contact modal">
+    <div class="contact modal" style="max-width: 700px;">
       <h1 class="modal-title">
         Contact me!
       </h1>
+
+      <hr style="width: 75%; margin: auto;">
+
+      <div>
+        <input type="text" value="JuanCarlosGMgo@gmail.com" id="email" readonly>
+        <button onclick="copyText()">Copy text</button>
+
+        <script>
+          function copyText() 
+          {
+            var copyText = document.getElementById("email");
+
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); //For mobile devices
+
+            navigator.clipboard.writeText(copyText.value);
+          }
+        </script>
+      </div>
+
       <div class="modal-exit-button">
         X
       </div>
+
+
     </div>
 
     <div class="credits modal" style="max-width: 700px;">
