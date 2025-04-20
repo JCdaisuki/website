@@ -4,6 +4,7 @@ import { OrbitControls } from './utils/OrbitControls.js';
 import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js'
 import { GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import gsap from "gsap"
+import confetti from "canvas-confetti";
 
 const canvas = document.querySelector("#experience-canvas");
 const sizes = 
@@ -167,6 +168,20 @@ function handleRaycasterInteraction()
     else if(object.name.includes('Credits'))
     {
       showModal(modals.credits);
+    }
+    else if(object.name.includes('JCdaisuki'))
+    {
+      confetti({
+        particleCount: 300,
+        spread: 90,
+        origin: { x: 1, y: 0.9 },
+      });
+
+      confetti({
+        particleCount: 300,
+        spread: 90,
+        origin: { x: 0, y: 0.9 },
+      });
     }
   }
 }
