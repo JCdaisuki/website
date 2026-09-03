@@ -76,7 +76,6 @@ function renderStudies() {
         <div class="description">${item.degree}</div>
         <div class="more-description">${item.period}</div>
         <hr style="margin: auto">
-        <div class="skills">Skills: ${item.skills}</div>
       </div>
     </div>
   `).join('');
@@ -98,7 +97,6 @@ function renderCertificates() {
         <div class="description">${item.issuer}</div>
         <div class="more-description">${item.details}</div>
         <hr style="margin: auto">
-        <div class="skills">Skills: ${item.skills}</div>
       </div>
     </div>
   `).join('');
