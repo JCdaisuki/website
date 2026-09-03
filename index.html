@@ -10,92 +10,104 @@
 
     <!-- About Modal -->
     <div class="about modal" style="max-width: 1400px;"> 
-      <h1 class="modal-title">About me</h1>
-      <div class="modal-exit-button">X</div>
-
-      <div class="scroll-wrapper">
-        <div class="description" style="margin-left: 1%; text-align: justify; width: 500px;">
-          Computer Science graduate at the Universidad de Jaén with specialized in software development and game programming using Unity (C#).
-          <br>
-          With hands-on experience in web applications using React, JavaScript and Agile methodologies.
-          <br>
-          Thank you for checking out my website!
-          <br>
-
-          <img src="public/images/yo.jpg" style="display: block; margin: 3% auto; width: 250px; height: 250px; border-radius: 1.2rem;" />
-        </div>
-
-        <!-- Studies Section -->
-        <div class="scroll-container">
-          <h1 class="modal-title">Studies</h1>
-          <hr style="width: 100%; margin: auto; margin-bottom: 5px;">
-          <div id="studies-container"></div>
-        </div>
       
-        <!-- Certificates Section -->
-        <div class="scroll-container">
-          <h1 class="modal-title">Certificates</h1>
-          <hr style="width: 100%; margin: auto; margin-bottom: 5px;">
-          <div id="certificates-container"></div>
+      <div class="title-bar">
+        <div class="title-bar-text">About me</div>
+        <div class="modal-exit-button">X</div>
+      </div>
+
+      <div class="window-body">
+        <div class="scroll-wrapper">
+          <div class="description" style="margin-left: 1%; text-align: justify; width: 500px;">
+            Computer Science graduate at the Universidad de Jaén with specialized in software development and game programming using Unity (C#).
+            <br><br>
+            With hands-on experience in web applications using React, JavaScript and Agile methodologies.
+            <br><br>
+            Thank you for checking out my website!
+            <br><br>
+            
+            <img src="public/images/yo.jpg" style="display: block; margin: 3% auto; width: 250px; height: 250px;" />          
+          </div>
+
+          <!-- Studies -->
+          <div class="scroll-container">
+            <div class="modal-title">Studies</div>
+            <div id="studies-container"></div>
+          </div>
+        
+          <!-- Certificates -->
+          <div class="scroll-container">
+            <div class="modal-title">Certificates</div>
+            <div id="certificates-container"></div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Projects Modal -->
     <div class="projects modal" style="max-width: 1100px;">
-      <h1 class="modal-title">My projects</h1>
-      <hr style="width: 75%; margin: auto; margin-bottom: 1%;">
-
-      <div class="scroll-wrapper">
-        <div style="margin-left: 1%; font-size: 0.75em; text-align: justify;">
-          I have been developing a series of personal projects using Unity3D and Blender
-        </div>
-        <div id="projects-container" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 2%;"></div>
+      
+      <div class="title-bar">
+        <div class="title-bar-text">My projects</div>
+        <div class="modal-exit-button">X</div>
       </div>
 
-      <div class="modal-exit-button">X</div>
+      <div class="window-body">
+        <div class="scroll-wrapper">
+          <div style="margin-left: 1%; font-size: 0.75em; text-align: justify;">
+            I have been developing a series of personal projects using Unity3D and Blender
+          </div>
+          <div id="projects-container" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 2%;"></div>
+        </div>
+      </div>
     </div>
 
     <!-- Contact Modal -->
     <div class="contact modal" style="max-width: 700px;">
-      <h1 class="modal-title">Contact me!</h1>
-      <hr style="width: 75%; margin: auto;">
-
-      <div style="text-align: center; margin-top: 1%; margin-bottom: 1%;">
-        <input type="text" value="JuanCarlosGMgo@gmail.com" id="email" readonly>
-        <button id="copy-email-btn">
-          <span class="button_top">
-            <div style="color:rgb(62, 62, 62)">Copy email</div>
-          </span>
-        </button>
-
-        <div class="social-container">
-          <a href="https://twitter.com/JCdaisuki0" target="_blank">
-            <img class="logo" src="public/images/x.jpg" alt="X" />
-          </a>
-          <a href="https://www.instagram.com/jcdaisuki/" target="_blank">
-            <img class="logo" src="public/images/ig.jpg" alt="Instagram" />
-          </a>
-          <a href="https://github.com/JCdaisuki" target="_blank">
-            <img class="logo" src="public/images/git.jpg" alt="GitHub" />
-          </a>
-          <a href="https://www.linkedin.com/in/jcdaisuki/" target="_blank">
-            <img class="logo" src="public/images/lk.jpg" alt="LinkedIn" />
-          </a>
-        </div>
+      
+      <div class="title-bar">
+        <div class="title-bar-text">Contact me!</div>
+        <div class="modal-exit-button">X</div>
       </div>
 
-      <div class="modal-exit-button">X</div>
+      <div class="window-body">
+        <div style="text-align: center; margin-top: 1%; margin-bottom: 1%;">
+          <input type="text" value="JuanCarlosGMgo@gmail.com" id="email" readonly>
+          <button id="copy-email-btn" style="margin-top: 15px;">
+            <span class="button_top">
+              <div style="color:rgb(62, 62, 62)">Copy email</div>
+            </span>
+          </button>
+
+          <div class="social-container">
+            <a href="https://twitter.com/JCdaisuki0" target="_blank">
+              <img class="logo" src="public/images/x.jpg" alt="X" />
+            </a>
+            <a href="https://www.instagram.com/jcdaisuki/" target="_blank">
+              <img class="logo" src="public/images/ig.jpg" alt="Instagram" />
+            </a>
+            <a href="https://github.com/JCdaisuki" target="_blank">
+              <img class="logo" src="public/images/git.jpg" alt="GitHub" />
+            </a>
+            <a href="https://www.linkedin.com/in/jcdaisuki/" target="_blank">
+              <img class="logo" src="public/images/lk.jpg" alt="LinkedIn" />
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Credits Modal -->
     <div class="credits modal" style="max-width: 700px;">
-      <h1 class="modal-title">Credits!</h1>
-      <hr style="width: 75%; margin: auto;">
       
-      <div class="description" id="credits-container" style="margin-left: 2%;"></div>
-
-      <div class="modal-exit-button">X</div>
+      <div class="title-bar">
+        <div class="title-bar-text">Credits!</div>
+        <div class="modal-exit-button">X</div>
+      </div>
+      
+      <div class="window-body">
+        <div class="description" id="credits-container" style="margin-left: 2%;"></div>
+      </div>
     </div>    
 
     <div id="experience">
