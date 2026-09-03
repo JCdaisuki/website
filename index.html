@@ -8,17 +8,13 @@
   <body>
     <div id="app"></div>
 
+    <!-- About Modal -->
     <div class="about modal" style="max-width: 1400px;"> 
-      <h1 class="modal-title">
-        About me
-      </h1>
-
-      <div class="modal-exit-button">
-        X
-      </div>
+      <h1 class="modal-title">About me</h1>
+      <div class="modal-exit-button">X</div>
 
       <div class="scroll-wrapper">
-        <div class="description" style="margin-left: 1%;text-align:justify; width: 500px;">
+        <div class="description" style="margin-left: 1%; text-align: justify; width: 500px;">
           Aspiring game developer and computer science student.
           <br>
           I enjoy drawing, reading and photography.
@@ -29,227 +25,79 @@
           <br>
 
           <img src="public/images/yo.jpg" style="display: block; margin: 3% auto; width: 250px; height: 250px; border-radius: 1.2rem;" />
-
         </div>
 
+        <!-- Studies Section -->
         <div class="scroll-container">
-          <h1 class="modal-title">
-            Studies
-          </h1>
-
+          <h1 class="modal-title">Studies</h1>
           <hr style="width: 100%; margin: auto; margin-bottom: 5px;">
-
-          <div class="card">
-            <div class="image">
-              <img class="certificate-img" src="public/images/uja.jpg" alt="University of Jaén" />
-            </div>
-            <div class="content">
-              <div class="title">University of Jaén</div>
-
-              <div class="description">Bachelor’s Degree in Computer Science</div>
-              <div class="more-description">2021-2026</div>
-              
-              <hr style="margin: auto">
-
-              <div class="skills">Skills: C, C++, C#, Object-oriented programming (OOP), Java, Unity3D</div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="image">
-              <img class="certificate-img" src="public/images/ritsu.jpg" alt="Ritsumeikan University" />
-            </div>
-            <div class="content">
-              <div class="title">Ritsumeikan University</div>
-
-              <div class="description">Bachelor’s Degree in Information Science and Engineering</div>
-              <div class="more-description">International studies plan <br>sept. 2023 - jul. 2024</div>
-              
-              <hr style="margin: auto">
-
-              <div class="skills">Skills: C, C++, C#, Object-oriented programming (OOP), JavaScript, Unity3D</div>
-            </div>
-          </div>
+          <div id="studies-container"></div>
         </div>
       
+        <!-- Certificates Section -->
         <div class="scroll-container">
-          <h1 class="modal-title">
-            Certificates
-          </h1>
-
+          <h1 class="modal-title">Certificates</h1>
           <hr style="width: 100%; margin: auto; margin-bottom: 5px;">
-
-          <div class="card">
-            <div class="image">
-              <img class="certificate-img" src="public/images/nico.jpg" alt="University of Nicosia" />
-            </div>
-            <div class="content">
-              <div class="title">
-                <a href="https://app.block.co/certificate/b25191c3-645b-411b-964a-a2aa48b671b6/">
-                  Introduction to Blockchain, NFTs and the Metaverse
-                </a>
-              </div>
-
-              <div class="description">University of Nicosia</div>
-              <div class="more-description">Expedition date: nov. 2022</div>
-              
-              <hr style="margin: auto">
-
-              <div class="skills">Skills: Bockchain and Metaverse</div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="image">
-              <img class="certificate-img" src="public/images/camb.jpg" alt="Cambridge University Press and Assessment English" />
-            </div>
-            <div class="content">
-              <div class="title">C1 Advanced</div>
-
-              <div class="description">Cambridge University Press and Assessment English</div>
-              <div class="more-description">Score 190 <br>Credetial ID: B6363155ID <br>Expedition date: jul. 2021 </div>
-              
-              <hr style="margin: auto">
-
-              <div class="skills">Skills: English</div>
-            </div>
-          </div>
-        
-          <div class="card">
-            <div class="image">
-              <img class="certificate-img" src="public/images/mini.jpg" alt="Ministère de l'Éducation nationale" />
-            </div>
-            <div class="content">
-              <div class="title">DELF B1</div>
-
-              <div class="description">Ministère de l'Éducation nationale</div>
-              <div class="more-description"><br>Credetial ID: 034058-202010S-4971372 <br>Expedition date: dic. 2020 </div>
-              
-              <hr style="margin: auto">
-
-              <div class="skills">Skills: French</div>
-            </div>
-          </div>
+          <div id="certificates-container"></div>
         </div>
       </div>
     </div>
 
+    <!-- Projects Modal -->
     <div class="projects modal" style="max-width: 1100px;">
-      <h1 class="modal-title">
-        My projects
-      </h1>
-      
+      <h1 class="modal-title">My projects</h1>
       <hr style="width: 75%; margin: auto; margin-bottom: 1%;">
 
       <div class="scroll-wrapper">
-
         <div style="margin-left: 1%; font-size: 0.75em; text-align: justify;">
           I have been developing a series of personal projects using Unity3D and Blender
-
-          <div style="justify-content: center; margin-top: 3%;">
-            <img src="https://i.imgur.com/nYUHBGx.gif" alt="Peque Michi" style="width:400px;height:200px;">
-          </div>
         </div>
-
-        <div style="margin-bottom: 1%; margin-right: 2%">
-          <img src="https://i.imgur.com/OShYBSY.gif" alt="Angel no Requiem" style="width:600px;height:300px;">
-        </div>
+        <div id="projects-container" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 2%;"></div>
       </div>
 
-      <div class="modal-exit-button">
-        X
-      </div>
+      <div class="modal-exit-button">X</div>
     </div>
 
+    <!-- Contact Modal -->
     <div class="contact modal" style="max-width: 700px;">
-      <h1 class="modal-title">
-        Contact me!
-      </h1>
-
+      <h1 class="modal-title">Contact me!</h1>
       <hr style="width: 75%; margin: auto;">
 
       <div style="text-align: center; margin-top: 1%; margin-bottom: 1%;">
         <input type="text" value="JuanCarlosGMgo@gmail.com" id="email" readonly>
-        <button onclick="copyText()">
+        <button id="copy-email-btn">
           <span class="button_top">
-            <div style="color:rgb(62, 62, 62)">
-              Copy email
-            </div>
+            <div style="color:rgb(62, 62, 62)">Copy email</div>
           </span>
         </button>
-
-        <script>
-          function copyText() 
-          {
-            var copyText = document.getElementById("email");
-
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); //For mobile devices
-
-            navigator.clipboard.writeText(copyText.value);
-          }
-        </script>
 
         <div class="social-container">
           <a href="https://twitter.com/JCdaisuki0" target="_blank">
             <img class="logo" src="public/images/x.jpg" alt="X" />
           </a>
-          
           <a href="https://www.instagram.com/jcdaisuki/" target="_blank">
             <img class="logo" src="public/images/ig.jpg" alt="Instagram" />
           </a>
-          
           <a href="https://github.com/JCdaisuki" target="_blank">
             <img class="logo" src="public/images/git.jpg" alt="GitHub" />
           </a>
-          
           <a href="https://www.linkedin.com/in/jcdaisuki/" target="_blank">
-            <img class="logo" src="public/images/lk.jpg" alt="linkedin" />
+            <img class="logo" src="public/images/lk.jpg" alt="LinkedIn" />
           </a>
         </div>
       </div>
 
-      <div class="modal-exit-button">
-        X
-      </div>
-
-
+      <div class="modal-exit-button">X</div>
     </div>
 
+    <!-- Credits Modal -->
     <div class="credits modal" style="max-width: 700px;">
-      <h1 class="modal-title">
-        Credits!
-      </h1>
-
+      <h1 class="modal-title">Credits!</h1>
       <hr style="width: 75%; margin: auto;">
       
-      <div class="description" style="margin-left: 2%;">
-        <p style="margin-bottom: 1%;">
-          <a href="https://skfb.ly/Q9Tr" target="_blank">"Frank"</a> by misterdevious is licensed under 
-          <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC Attribution-NonCommercial-ShareAlike</a>.
-        </p>
-        
-        <hr style="width: 50%; margin: auto;">
+      <div class="description" id="credits-container" style="margin-left: 2%;"></div>
 
-        <p style="margin-bottom: 1%;">
-          <a href="https://skfb.ly/orUvU" target="_blank">"Electric Guitar"</a> by KangaroOz 3D is licensed under 
-          <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial</a>.
-        </p>
-        
-        <hr style="width: 50%; margin: auto;">
-        
-        <p style="margin-bottom: 1%;">
-          <a href="https://skfb.ly/o7uIV" target="_blank">"Ayanami Rei plush !"</a> by Femgyro is licensed under 
-          <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution</a>.
-        </p>
-        
-        <hr style="width: 50%; margin: auto;">
-        
-      </div>
-
-      <div class="modal-exit-button">
-        X
-      </div>
+      <div class="modal-exit-button">X</div>
     </div>    
 
     <div id="experience">
