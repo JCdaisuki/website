@@ -40,6 +40,42 @@ function initHamburgerMenu() {
   });
 }
 
+function initAudioControl() {
+  const bgMusic = document.getElementById("bg-music");
+  const audioButton = document.getElementById("audio-toggle-button");
+  const audioIcon = document.getElementById("audio-icon");
+
+  if (!bgMusic || !audioButton || !audioIcon) return;
+
+  const iconOn = "public/images/sound_on.png";
+  const iconOff = "public/images/sound_off.png";
+
+  bgMusic.muted = false;
+
+  const handleFirstInteraction = () => {
+    if (!bgMusic.muted && bgMusic.paused) {
+      bgMusic.play().catch(() => {});
+    }
+    document.removeEventListener("click", handleFirstInteraction);
+  };
+  document.addEventListener("click", handleFirstInteraction);
+
+  audioButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    if (bgMusic.muted) {
+      bgMusic.muted = false;
+      bgMusic.play().catch(() => {});
+      audioIcon.src = iconOn;
+      audioIcon.alt = "Sound On";
+    } else {
+      bgMusic.muted = true;
+      audioIcon.src = iconOff;
+      audioIcon.alt = "Sound Off";
+    }
+  });
+}
+
 export function initUI(onModalCloseCallback) {
   document.querySelectorAll(".modal-exit-button").forEach(button => {
     button.addEventListener("click", (e) => {
@@ -54,6 +90,7 @@ export function initUI(onModalCloseCallback) {
   }
 
   initHamburgerMenu();
+  initAudioControl();
 
   renderStudies();
   renderCertificates();

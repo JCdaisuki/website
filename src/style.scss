@@ -732,3 +732,27 @@ input {
     height: 60px;
   }
 }
+
+.audio-control-wrapper {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  z-index: 1005;
+}
+
+.audio-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 4px;
+
+  img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    border: none !important;
+    pointer-events: none;
+  }
+}

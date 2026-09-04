@@ -108,24 +108,10 @@ export const projectsData = [
 
 export const creditsData = [
   {
-    title: '"Frank"',
-    author: 'misterdevious',
-    modelUrl: 'https://skfb.ly/Q9Tr',
-    license: 'CC Attribution-NonCommercial-ShareAlike',
-    licenseUrl: 'http://creativecommons.org/licenses/by-nc-sa/4.0/'
-  },
-  {
-    title: '"Electric Guitar"',
-    author: 'KangaroOz 3D',
-    modelUrl: 'https://skfb.ly/orUvU',
-    license: 'Creative Commons Attribution-NonCommercial',
-    licenseUrl: 'http://creativecommons.org/licenses/by-nc/4.0/'
-  },
-  {
-    title: '"Ayanami Rei plush !"',
-    author: 'Femgyro',
-    modelUrl: 'https://skfb.ly/o7uIV',
-    license: 'Creative Commons Attribution',
-    licenseUrl: 'http://creativecommons.org/licenses/by/4.0/'
+    title: 'Background Music',
+    author: 'solarflex',
+    modelUrl: 'https://pixabay.com/users/solarflex-54712313/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=569588',
+    license: 'Pixabay License',
+    licenseUrl: 'https://pixabay.com/music/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=569588'
   }
 ];
