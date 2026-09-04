@@ -31,7 +31,6 @@ const onModalClose = () => {
   isModalOpen = false;
   controls.enabled = true;
   
-  // Force close all sub-windows when the main window is closed
   const modalStudies = document.getElementById("modal-studies");
   const modalCert = document.getElementById("modal-certificates");
   const modalExp = document.getElementById("modal-experience");
@@ -41,7 +40,6 @@ const onModalClose = () => {
   if (modalExp) modalExp.style.display = "none";
 };
 
-// --- PREVENT BROWSER ZOOM (Ctrl + / Ctrl - / Ctrl Scroll) ---
 document.addEventListener('wheel', function(e) {
   if (e.ctrlKey) { e.preventDefault(); }
 }, { passive: false });
@@ -51,7 +49,6 @@ document.addEventListener('keydown', function(e) {
     e.preventDefault();
   }
 });
-// -----------------------------------------------------------
 
 initUI(onModalClose);
 
@@ -133,7 +130,7 @@ window.addEventListener("touchend", (event) => {
 }, { passive: false });
 
 window.addEventListener("click", () => {
-  if (isModalOpen) return; // Ignore 3D clicks while UI is open
+  if (isModalOpen) return;
   handleRaycasterInteraction();
 });
 
@@ -177,25 +174,20 @@ function playHoverAnimation(object, isHovering) {
     });
   }
 }
-
-// --- NEW: BULLETPROOF SUB-MODAL LOGIC ---
-// The 'true' at the end forces this to run before ANY other script can block the click
 window.addEventListener("click", (e) => {
   
-  // 1. Check for Studies Button
-  if (e.target.closest("#btn-studies")) {
+  if (e.target.closest("#button-studies")) {
     e.preventDefault();
     e.stopPropagation(); 
     const modal = document.getElementById("modal-studies");
     if (modal) {
         modal.style.display = "block";
-        modal.style.zIndex = "9999"; // Forces it to the very front
+        modal.style.zIndex = "9999";
     }
     return;
   }
   
-  // 2. Check for Certificates Button
-  if (e.target.closest("#btn-certificates")) {
+  if (e.target.closest("#button-certificates")) {
     e.preventDefault();
     e.stopPropagation();
     const modal = document.getElementById("modal-certificates");
@@ -206,8 +198,7 @@ window.addEventListener("click", (e) => {
     return;
   }
   
-  // 3. Check for Experience Button
-  if (e.target.closest("#btn-experience")) {
+  if (e.target.closest("#button-experience")) {
     e.preventDefault();
     e.stopPropagation();
     const modal = document.getElementById("modal-experience");
@@ -218,21 +209,18 @@ window.addEventListener("click", (e) => {
     return;
   }
 
-  // 4. Handle Sub-Modal Exit Buttons (The red "X" buttons)
-  const exitBtn = e.target.closest(".sub-exit");
-  if (exitBtn) {
+  const exitButton = e.target.closest(".sub-exit");
+  if (exitButton) {
     e.preventDefault();
     e.stopPropagation();
-    // Safely find ONLY the sub-modal to close, ignoring the main modal
-    const parentModal = exitBtn.closest("#modal-studies, #modal-certificates, #modal-experience");
+    const parentModal = exitButton.closest("#modal-studies, #modal-certificates, #modal-experience");
     if (parentModal) {
         parentModal.style.display = "none";
     }
     return;
   }
   
-}, true); // <- true = Capture Phase
-// ---------------------------------------------
+}, true);
 
 const render = () => {
   controls.update();

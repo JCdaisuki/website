@@ -17,7 +17,7 @@ body {
   font-family: 'VT323', monospace;
   font-size: 1.2rem;
   color: #222; 
-  weight: bolder;
+  font-weight: bolder;
 }
 
 canvas {
@@ -113,6 +113,7 @@ canvas {
   cursor: pointer;
   color: black;
   padding-bottom: 2px;
+  border-radius: 0; /* Sharp corners */
   
   &:active {
     border-top-color: #000000;
@@ -150,7 +151,7 @@ canvas {
   overflow-y: auto;
   margin-bottom: 10px;
   
-  background-color: #ffffff;
+  background-color: #dfdfdf;
   border: 2px solid;
   border-top-color: #808080;
   border-left-color: #808080;
@@ -160,11 +161,60 @@ canvas {
 }
 
 .card {
+  border-bottom: 2px solid #808080;
+  box-shadow: 0px 2px 0px #ffffff;
   display: flex;
   align-items: flex-start;
   margin-bottom: 20px;
   width: 100%;
 }
+
+  ::-webkit-scrollbar {
+    width: 18px;
+    height: 18px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #e0e0e0;
+    border-left: 2px solid #ffffff;
+    border-top: 2px solid #ffffff;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #c0c0c0;
+    border: 2px solid;
+    border-top-color: #ffffff;
+    border-left-color: #ffffff;
+    border-right-color: #000000;
+    border-bottom-color: #000000;
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background-color: #a0a0a0;
+    border-top-color: #000000;
+    border-left-color: #000000;
+    border-right-color: #ffffff;
+    border-bottom-color: #ffffff;
+  }
+
+  ::-webkit-scrollbar-button:single-button {
+    background-color: #c0c0c0;
+    border: 2px solid;
+    border-top-color: #ffffff;
+    border-left-color: #ffffff;
+    border-right-color: #000000;
+    border-bottom-color: #000000;
+    display: block;
+    height: 18px;
+    width: 18px;
+  }
+
+  ::-webkit-scrollbar-button:single-button:active {
+    border-top-color: #000000;
+    border-left-color: #000000;
+    border-right-color: #ffffff;
+    border-bottom-color: #ffffff;
+  }
 
 .image {
   display: flex;
@@ -190,7 +240,7 @@ canvas {
 
 .social-container {
   display: grid;
-  grid-template-columns: repeat(2, 80px);
+  grid-template-columns: repeat(4, 80px);
   justify-content: center;
   gap: 20px 40px;
   margin: 20px auto;
@@ -221,6 +271,7 @@ canvas {
   font-size: 0.75em;
   color: vars.$softer-black;
   margin-top: 10px;
+  margin-bottom: 15px;  
 }
 
 .more-description {
@@ -251,6 +302,20 @@ input {
   }
 }
 
+.email-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+  margin-top: 15px;
+}
+
+.copy-button {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .retro-button {
   font-family: inherit;
   font-size: 0.9em;
@@ -267,6 +332,7 @@ input {
   
   cursor: pointer;
   color: #222;
+  border-radius: 0;
 }
 
 .retro-button:active {
@@ -276,6 +342,40 @@ input {
   border-bottom-color: #ffffff;
   box-shadow: inset 1px 1px 0px #808080, inset -1px -1px 0px #dfdfdf;
   padding: 6px 14px 4px 16px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center; 
+  gap: 25px; 
+  margin-bottom: 25px;
+}
+
+.profile-pic {
+  display: block;
+  margin-left: 15px;
+}
+
+.profile-buttons {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  gap: 15px; 
+  flex: 1; 
+}
+
+.retro-button.large-button {
+  font-size: 0.95em;      
+  padding: 10px 15px;     
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  letter-spacing: 1px;
+  border-radius: 0 !important; 
+}
+
+.bio-content {
+  max-width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -296,5 +396,20 @@ input {
   
   .content {
     max-width: 100%;
+  }
+
+  .profile-header {
+    flex-direction: column; 
+    text-align: center;
+  }
+  
+  .profile-pic {
+    margin: 0 auto;
+  }
+  
+  .profile-buttons {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
   }
 }

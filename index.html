@@ -11,25 +11,32 @@
     <!-- About Modal -->
     <div class="about modal" style="max-width: 600px;">
       <div class="title-bar">
-        <div class="title-bar-text">About me</div>
+        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
+          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+          <div class="title-bar-text">About me</div>
+        </div>
         <div class="modal-exit-button main-exit">X</div>
       </div>
 
       <div class="window-body">
-        <div class="description" style="text-align: justify; padding: 10px;">
+        <div class="content bio-content description" style="text-align: justify; padding: 10px;">
           Computer Science graduate at the Universidad de Jaén with specialized in software development and game programming using Unity (C#).
           <br><br>
           With hands-on experience in web applications using React, JavaScript and Agile methodologies.
           <br><br>
           Thank you for checking out my website!
-          <br><br>
-          <img src="public/images/yo.jpg" style="display: block; margin: 3% auto; width: 250px; height: 250px;" />
         </div>
-        
-        <div style="display: flex; justify-content: space-between; margin-top: 15px; padding: 0 10px;">
-          <button id="btn-studies" class="retro-btn">Studies</button>
-          <button id="btn-certificates" class="retro-btn">Certificates</button>
-          <button id="btn-experience" class="retro-btn">Experience</button>
+
+        <div class="profile-header">
+          <div class="image">
+            <img src="public/images/yo.jpg" alt="Profile Picture" class="profile-pic" style="width: 200px; height: 200px; object-fit: cover; border: 3px solid #808080; border-right-color: #ffffff; border-bottom-color: #ffffff; display: block;" />
+          </div>
+          
+          <div class="profile-buttons">
+            <button id="button-studies" class="retro-button large-button">Studies</button>
+            <button id="button-certificates" class="retro-button large-button">Certificates</button>
+            <button id="button-experience" class="retro-button large-button">Experience</button>
+          </div>
         </div>
       </div>
     </div>
@@ -37,8 +44,11 @@
     <!-- Studies -->
     <div id="modal-studies" class="modal" style="max-width: 700px; z-index: 1001;">
       <div class="title-bar">
-        <div class="title-bar-text">Studies</div>
-        <div class="modal-exit-button sub-exit">X</div>
+        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
+          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+          <div class="title-bar-text">Studies</div>
+        </div>
+        <div class="modal-exit-button main-exit">X</div>
       </div>
       <div class="window-body">
         <div class="scroll-container" style="width: 100%;">
@@ -50,8 +60,11 @@
     <!-- Certificates -->
     <div id="modal-certificates" class="modal" style="max-width: 700px; z-index: 1001;">
       <div class="title-bar">
-        <div class="title-bar-text">Certificates</div>
-        <div class="modal-exit-button sub-exit">X</div>
+        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
+          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+          <div class="title-bar-text">Certificates</div>
+        </div>
+        <div class="modal-exit-button main-exit">X</div>
       </div>
       <div class="window-body">
         <div class="scroll-container" style="width: 100%;">
@@ -63,31 +76,68 @@
     <!-- Experience -->
     <div id="modal-experience" class="modal" style="max-width: 700px; z-index: 1001;">
       <div class="title-bar">
-        <div class="title-bar-text">Experience</div>
-        <div class="modal-exit-button sub-exit">X</div>
+        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
+          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+          <div class="title-bar-text">Experience</div>
+        </div>
+        <div class="modal-exit-button main-exit">X</div>
       </div>
       <div class="window-body">
         <div class="scroll-container" style="width: 100%;">
-          <!-- experience data  -->
           <div id="experience-data-container"></div>
         </div>
       </div>
     </div>
 
     <!-- Projects Modal -->
-    <div class="projects modal" style="max-width: 1100px;">
+    <div class="projects modal" style="max-width: 1100px; width: 90%;">
       
       <div class="title-bar">
-        <div class="title-bar-text">My projects</div>
-        <div class="modal-exit-button">X</div>
+        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
+          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+          <div class="title-bar-text">My projects</div>
+        </div>
+        <div class="modal-exit-button main-exit">X</div>
       </div>
 
       <div class="window-body">
-        <div class="scroll-wrapper">
-          <div style="margin-left: 1%; font-size: 0.75em; text-align: justify;">
-            I have been developing a series of personal projects using Unity3D and Blender
+
+        <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: stretch;">
+          
+          <div style="flex: 1; min-width: 400px; display: flex; flex-direction: column;">
+            <div style="font-weight: bold; margin-bottom: 8px;">Commercial Releases</div>
+            <div class="scroll-container" style="flex: 1; margin-bottom: 0;">
+              <div class="card" style="display: flex; align-items: flex-start; gap: 20px; width: 100%; background: #dfdfdf; padding: 15px; border: 2px solid; border-top-color: #808080; border-left-color: #808080; border-right-color: #ffffff; border-bottom-color: #ffffff; margin-bottom: 0;">
+                <div class="image" style="flex-shrink: 0; margin-left: 0; margin-right: 0;">
+                  <img src="public/images/cow.jpg" alt="Cow Project 1986" style="width: 150px; height: 130px; object-fit: cover; border: 2px solid; border-top-color: #000000; border-left-color: #000000; border-right-color: #ffffff; border-bottom-color: #ffffff;" />
+                </div>
+                <div class="content" style="flex: 1; max-width: 100% !important;">
+                  <div class="title" style="font-weight: bold; font-size: 1.1em;">Cow Project 1986</div>
+                  <div class="description" style="margin-top: 5px; font-size: 0.85em;">
+                     A game about an alien that has to abduct things to pay rent! 
+                     <br> Available now!
+                  </div>
+                  <div style="margin-top: 15px;">
+                    <a href="https://store.steampowered.com/app/4644670/Proyecto_Vaca_1986/" target="_blank" style="text-decoration: none;">
+                      <button class="retro-button" style="font-size: 0.85em;">View on Steam ↗</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
-          <div id="projects-container" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 2%;"></div>
+
+          <div style="flex: 1; min-width: 400px; display: flex; flex-direction: column;">
+            <div style="font-weight: bold; margin-bottom: 8px;">Personal Projects</div>
+            <div class="scroll-container" style="flex: 1; margin-bottom: 0;">    
+              <div style="margin-bottom: 15px; font-size: 0.75em; text-align: justify; width: 100%;">
+                I have been developing a series of personal projects using Unity3D and Blender.
+              </div>
+              <div id="projects-container" style="display: flex; flex-direction: column; gap: 15px; width: 100%;"></div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -96,33 +146,32 @@
     <div class="contact modal" style="max-width: 700px;">
       
       <div class="title-bar">
-        <div class="title-bar-text">Contact me!</div>
-        <div class="modal-exit-button">X</div>
+        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
+          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+          <div class="title-bar-text">Contact me!</div>
+        </div>
+        <div class="modal-exit-button main-exit">X</div>
       </div>
 
       <div class="window-body">
-        <div style="text-align: center; margin-top: 1%; margin-bottom: 1%;">
+        <div class="email-container" style="justify-content: center; margin-top: 20px; margin-bottom: 20px;">
           <input type="text" value="JuanCarlosGMgo@gmail.com" id="email" readonly>
-          <button id="copy-email-btn" style="margin-top: 15px;">
-            <span class="button_top">
-              <div style="color:rgb(62, 62, 62)">Copy email</div>
-            </span>
-          </button>
+          <button id="copy-email-button" class="retro-button copy-button">Copy email</button>
+        </div>
 
-          <div class="social-container">
-            <a href="https://twitter.com/JCdaisuki0" target="_blank">
-              <img class="logo" src="public/images/x.jpg" alt="X" />
-            </a>
-            <a href="https://www.instagram.com/jcdaisuki/" target="_blank">
-              <img class="logo" src="public/images/ig.jpg" alt="Instagram" />
-            </a>
-            <a href="https://github.com/JCdaisuki" target="_blank">
-              <img class="logo" src="public/images/git.jpg" alt="GitHub" />
-            </a>
-            <a href="https://www.linkedin.com/in/jcdaisuki/" target="_blank">
-              <img class="logo" src="public/images/lk.jpg" alt="LinkedIn" />
-            </a>
-          </div>
+        <div class="social-container">
+          <a href="https://twitter.com/JCdaisuki0" target="_blank">
+            <img class="logo" src="public/images/x.jpg" alt="X" />
+          </a>
+          <a href="https://www.instagram.com/jcdaisuki/" target="_blank">
+            <img class="logo" src="public/images/ig.jpg" alt="Instagram" />
+          </a>
+          <a href="https://github.com/JCdaisuki" target="_blank">
+            <img class="logo" src="public/images/git.jpg" alt="GitHub" />
+          </a>
+          <a href="https://www.linkedin.com/in/jcdaisuki/" target="_blank">
+            <img class="logo" src="public/images/lk.jpg" alt="LinkedIn" />
+          </a>
         </div>
       </div>
     </div>
@@ -131,8 +180,11 @@
     <div class="credits modal" style="max-width: 700px;">
       
       <div class="title-bar">
-        <div class="title-bar-text">Credits!</div>
-        <div class="modal-exit-button">X</div>
+        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
+          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+          <div class="title-bar-text">Credits</div>
+        </div>
+        <div class="modal-exit-button main-exit">X</div>
       </div>
       
       <div class="window-body">

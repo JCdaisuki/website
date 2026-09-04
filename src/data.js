@@ -99,14 +99,14 @@ export const projectsData = [
   {
     title: "Peque Michi",
     image: "https://i.imgur.com/nYUHBGx.gif",
-    width: "400px",
+    width: "375px",
     height: "200px"
   },
   {
     title: "Angel no Requiem",
     image: "https://i.imgur.com/OShYBSY.gif",
-    width: "600px",
-    height: "300px"
+    width: "375px",
+    height: "200px"
   }
 ];
 

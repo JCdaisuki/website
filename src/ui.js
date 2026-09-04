@@ -16,9 +16,9 @@ export function initUI(onModalCloseCallback) {
     });
   });
 
-  const copyBtn = document.querySelector("#copy-email-btn");
-  if (copyBtn) {
-    copyBtn.addEventListener("click", copyText);
+  const copyButton = document.querySelector("#copy-email-button");
+  if (copyButton) {
+    copyButton.addEventListener("click", copyText);
   }
 
   renderStudies();
