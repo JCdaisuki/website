@@ -8,6 +8,38 @@ export const modals = {
   credits: document.querySelector(".modal.credits")
 };
 
+function initHamburgerMenu() {
+  const hamburgerButton = document.getElementById("hamburger-button");
+  const hamburgerDropdown = document.getElementById("hamburger-dropdown");
+
+  if (!hamburgerButton || !hamburgerDropdown) return;
+
+  hamburgerButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+    hamburgerDropdown.classList.toggle("active");
+  });
+
+  hamburgerDropdown.querySelectorAll("[data-modal]").forEach(item => {
+    item.addEventListener("click", () => {
+      const modalKey = item.getAttribute("data-modal");
+      const targetModal = modals[modalKey] || document.getElementById(`modal-${modalKey}`);
+      
+      if (targetModal) {
+        showModal(targetModal);
+      }
+      
+      hamburgerDropdown.classList.remove("active");
+    });
+  });
+
+  document.addEventListener("click", (e) => {
+    const wrapper = document.querySelector(".hamburger-wrapper");
+    if (wrapper && !wrapper.contains(e.target)) {
+      hamburgerDropdown.classList.remove("active");
+    }
+  });
+}
+
 export function initUI(onModalCloseCallback) {
   document.querySelectorAll(".modal-exit-button").forEach(button => {
     button.addEventListener("click", (e) => {
@@ -20,6 +52,8 @@ export function initUI(onModalCloseCallback) {
   if (copyButton) {
     copyButton.addEventListener("click", copyText);
   }
+
+  initHamburgerMenu();
 
   renderStudies();
   renderCertificates();

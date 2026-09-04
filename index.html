@@ -8,6 +8,28 @@
   <body>
     <div id="app"></div>
 
+    <!-- Hamburger Menu -->
+    <div class="hamburger-wrapper">
+      <button id="hamburger-button" class="retro-button hamburger-button">
+        <span>☰</span> Menu
+      </button>
+      
+      <div id="hamburger-dropdown" class="hamburger-dropdown">
+        <div class="menu-item" data-modal="about">About me</div>
+        <div class="menu-sub-item" data-modal="studies">• Studies</div>
+        <div class="menu-sub-item" data-modal="certificates">• Certificates</div>
+        <div class="menu-sub-item" data-modal="experience">• Experience</div>
+        
+        <div class="menu-divider"></div>
+        
+        <div class="menu-item" data-modal="projects">My projects</div>
+        
+        <div class="menu-divider"></div>
+        
+        <div class="menu-item" data-modal="contact">Contact me</div>
+      </div>
+    </div>
+
     <!-- About Modal -->
     <div class="about modal">
       <div class="title-bar">

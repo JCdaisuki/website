@@ -34,6 +34,72 @@ canvas {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.hamburger-wrapper {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1005;
+}
+
+.hamburger-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+  padding: 5px 12px;
+}
+
+.hamburger-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  width: 200px;
+  background-color: #c0c0c0;
+  border: 2px solid;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  border-right-color: #000000;
+  border-bottom-color: #000000;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  padding: 3px;
+
+  &.active {
+    display: block;
+  }
+}
+
+.menu-item,
+.menu-sub-item {
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 0.9em;
+  color: #000000;
+
+  &:hover {
+    background-color: #000080;
+    color: #ffffff;
+  }
+}
+
+.menu-sub-item {
+  padding-left: 24px;
+  font-size: 0.8em;
+  color: #444444;
+
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+.menu-divider {
+  height: 2px;
+  margin: 4px 2px;
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #ffffff;
+}
+
 #experience {
   position: fixed;
   height: 100%;
