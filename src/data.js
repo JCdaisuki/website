@@ -98,15 +98,11 @@ export const workData = [
 export const projectsData = [
   {
     title: "Peque Michi",
-    image: "public/images/miau.gif",
-    width: "375px",
-    height: "200px"
+    image: "public/images/miau.gif"
   },
   {
     title: "Angel no Requiem",
-    image: "public/images/angel.gif",
-    width: "375px",
-    height: "200px"
+    image: "public/images/angel.gif"
   }
 ];
 

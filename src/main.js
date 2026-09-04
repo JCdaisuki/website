@@ -98,7 +98,7 @@ loader.load("/models/scene.glb", (glb) => {
   let glbCamera = null;
 
   glb.scene.traverse(child => {
-    if (child.isMesh) {
+    if (child.isMesh) { 
       if (child.name.includes("Raycaster")) {
         raycasterObjects.push(child);
         child.userData.initialPosition = new THREE.Vector3().copy(child.position);
