@@ -12,6 +12,30 @@ import { modals, initUI, showModal } from './ui.js';
 const canvas = document.querySelector("#experience-canvas");
 const { scene, camera, renderer, controls, sizes } = setupScene(canvas);
 
+let baseFov = camera.fov || 45;
+
+function updateCameraPosition() {
+  const aspect = window.innerWidth / window.innerHeight;
+  camera.aspect = aspect;
+
+  if (aspect < 1) {
+    const rad = (baseFov * Math.PI) / 180;
+    const portraitFov = (2 * Math.atan(Math.tan(rad / 2) / aspect) * 180) / Math.PI;
+    camera.fov = portraitFov;
+  } else {
+    camera.fov = baseFov;
+  }
+
+  camera.updateProjectionMatrix();
+}
+
+updateCameraPosition();
+
+window.addEventListener('resize', () => {
+  updateCameraPosition();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
 let isModalOpen = false;
 
 const onModalOpen = () => {
@@ -101,6 +125,12 @@ loader.load("/models/scene.glb", (glb) => {
 
   if (glbCamera) {
     camera.position.copy(glbCamera.position);
+    camera.rotation.copy(glbCamera.rotation);
+    
+    baseFov = glbCamera.fov || 45;
+    
+    updateCameraPosition();
+
     camera.scale.copy(glbCamera.scale);
     camera.updateProjectionMatrix();
   }
@@ -118,16 +148,25 @@ window.addEventListener('mousemove', (event) => {
 
 window.addEventListener("touchstart", (event) => {
   if (isModalOpen) return;
-  event.preventDefault();
-  handleRaycasterInteraction();
-}, { passive: false });
+  if (event.touches && event.touches.length > 0) {
+    pointer.x = (event.touches[0].clientX / sizes.width) * 2 - 1;
+    pointer.y = -(event.touches[0].clientY / sizes.height) * 2 + 1;
+  }
+}, { passive: true });
 
 window.addEventListener("touchend", (event) => {
   if (isModalOpen) return;
-  event.preventDefault();
-  pointer.x = (event.touches[0].clientX / sizes.width) * 2 - 1;
-  pointer.y = -(event.touches[0].clientY / sizes.height) * 2 + 1;
-}, { passive: false });
+  
+  if (event.changedTouches && event.changedTouches.length > 0) {
+    pointer.x = (event.changedTouches[0].clientX / sizes.width) * 2 - 1;
+    pointer.y = -(event.changedTouches[0].clientY / sizes.height) * 2 + 1;
+
+    raycaster.setFromCamera(pointer, camera);
+    currentIntersects = raycaster.intersectObjects(raycasterObjects);
+
+    handleRaycasterInteraction();
+  }
+}, { passive: true });
 
 window.addEventListener("click", () => {
   if (isModalOpen) return;
@@ -174,8 +213,8 @@ function playHoverAnimation(object, isHovering) {
     });
   }
 }
+
 window.addEventListener("click", (e) => {
-  
   if (e.target.closest("#button-studies")) {
     e.preventDefault();
     e.stopPropagation(); 
@@ -219,7 +258,6 @@ window.addEventListener("click", (e) => {
     }
     return;
   }
-  
 }, true);
 
 const render = () => {
