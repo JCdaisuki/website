@@ -9,17 +9,17 @@
     <div id="app"></div>
 
     <!-- About Modal -->
-    <div class="about modal" style="max-width: 600px;">
+    <div class="about modal">
       <div class="title-bar">
-        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
-          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+        <div class="title-bar-inner">
+          <img src="public/images/icon.png" alt="Icon" class="title-icon" />
           <div class="title-bar-text">About me</div>
         </div>
         <div class="modal-exit-button main-exit">X</div>
       </div>
 
       <div class="window-body">
-        <div class="content bio-content description" style="text-align: justify; padding: 10px;">
+        <div class="content bio-content description">
           Computer Science graduate at the Universidad de Jaén with specialized in software development and game programming using Unity (C#).
           <br><br>
           With hands-on experience in web applications using React, JavaScript and Agile methodologies.
@@ -29,7 +29,7 @@
 
         <div class="profile-header">
           <div class="image">
-            <img src="public/images/yo.jpg" alt="Profile Picture" class="profile-pic" style="width: 200px; height: 200px; object-fit: cover; border: 3px solid #808080; border-right-color: #ffffff; border-bottom-color: #ffffff; display: block;" />
+            <img src="public/images/yo.jpg" alt="Profile Picture" class="profile-pic" />
           </div>
           
           <div class="profile-buttons">
@@ -42,59 +42,59 @@
     </div>
 
     <!-- Studies -->
-    <div id="modal-studies" class="modal" style="max-width: 700px; z-index: 1001;">
+    <div id="modal-studies" class="modal standard-modal">
       <div class="title-bar">
-        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
-          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+        <div class="title-bar-inner">
+          <img src="public/images/icon.png" alt="Icon" class="title-icon" />
           <div class="title-bar-text">Studies</div>
         </div>
         <div class="modal-exit-button main-exit">X</div>
       </div>
       <div class="window-body">
-        <div class="scroll-container" style="width: 100%;">
+        <div class="scroll-container">
           <div id="studies-container"></div>
         </div>
       </div>
     </div>
 
     <!-- Certificates -->
-    <div id="modal-certificates" class="modal" style="max-width: 700px; z-index: 1001;">
+    <div id="modal-certificates" class="modal standard-modal">
       <div class="title-bar">
-        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
-          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+        <div class="title-bar-inner">
+          <img src="public/images/icon.png" alt="Icon" class="title-icon" />
           <div class="title-bar-text">Certificates</div>
         </div>
         <div class="modal-exit-button main-exit">X</div>
       </div>
       <div class="window-body">
-        <div class="scroll-container" style="width: 100%;">
+        <div class="scroll-container">
           <div id="certificates-container"></div>
         </div>
       </div>
     </div>
 
     <!-- Experience -->
-    <div id="modal-experience" class="modal" style="max-width: 700px; z-index: 1001;">
+    <div id="modal-experience" class="modal standard-modal">
       <div class="title-bar">
-        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
-          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+        <div class="title-bar-inner">
+          <img src="public/images/icon.png" alt="Icon" class="title-icon" />
           <div class="title-bar-text">Experience</div>
         </div>
         <div class="modal-exit-button main-exit">X</div>
       </div>
       <div class="window-body">
-        <div class="scroll-container" style="width: 100%;">
-          <div id="experience-data-container"></div>
+        <div class="scroll-container">
+          <div id="experience-container"></div>
         </div>
       </div>
     </div>
 
     <!-- Projects Modal -->
-    <div class="projects modal" style="max-width: 1100px; width: 90%;">
+    <div class="projects modal large-modal">
       
       <div class="title-bar">
-        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
-          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+        <div class="title-bar-inner">
+          <img src="public/images/icon.png" alt="Icon" class="title-icon" />
           <div class="title-bar-text">My projects</div>
         </div>
         <div class="modal-exit-button main-exit">X</div>
@@ -102,24 +102,24 @@
 
       <div class="window-body">
 
-        <div style="display: flex; gap: 20px; flex-wrap: wrap; align-items: stretch;">
+        <div class="projects-layout">
           
-          <div style="flex: 1; min-width: 400px; display: flex; flex-direction: column;">
-            <div style="font-weight: bold; margin-bottom: 8px;">Commercial Releases</div>
-            <div class="scroll-container" style="flex: 1; margin-bottom: 0;">
-              <div class="card" style="display: flex; align-items: flex-start; gap: 20px; width: 100%; background: #dfdfdf; padding: 15px; border: 2px solid; border-top-color: #808080; border-left-color: #808080; border-right-color: #ffffff; border-bottom-color: #ffffff; margin-bottom: 0;">
-                <div class="image" style="flex-shrink: 0; margin-left: 0; margin-right: 0;">
-                  <img src="public/images/cow.jpg" alt="Cow Project 1986" style="width: 150px; height: 130px; object-fit: cover; border: 2px solid; border-top-color: #000000; border-left-color: #000000; border-right-color: #ffffff; border-bottom-color: #ffffff;" />
+          <div class="projects-column">
+            <div class="column-title">Commercial Releases</div>
+            <div class="scroll-container no-margin-bottom">
+              <div class="card project-card">
+                <div class="image project-image-wrapper">
+                  <img src="public/images/cow.jpg" alt="Cow Project 1986" class="project-img" />
                 </div>
-                <div class="content" style="flex: 1; max-width: 100% !important;">
-                  <div class="title" style="font-weight: bold; font-size: 1.1em;">Cow Project 1986</div>
-                  <div class="description" style="margin-top: 5px; font-size: 0.85em;">
+                <div class="content project-content">
+                  <div class="title project-title">Cow Project 1986</div>
+                  <div class="description project-description">
                      A game about an alien that has to abduct things to pay rent! 
                      <br> Available now!
                   </div>
-                  <div style="margin-top: 15px;">
-                    <a href="https://store.steampowered.com/app/4644670/Proyecto_Vaca_1986/" target="_blank" style="text-decoration: none;">
-                      <button class="retro-button" style="font-size: 0.85em;">View on Steam ↗</button>
+                  <div class="project-link">
+                    <a href="https://store.steampowered.com/app/4644670/Proyecto_Vaca_1986/" target="_blank">
+                      <button class="retro-button steam-button">View on Steam ↗</button>
                     </a>
                   </div>
                 </div>
@@ -128,13 +128,13 @@
             </div>
           </div>
 
-          <div style="flex: 1; min-width: 400px; display: flex; flex-direction: column;">
-            <div style="font-weight: bold; margin-bottom: 8px;">Personal Projects</div>
-            <div class="scroll-container" style="flex: 1; margin-bottom: 0;">    
-              <div style="margin-bottom: 15px; font-size: 0.75em; text-align: justify; width: 100%;">
+          <div class="projects-column">
+            <div class="column-title">Personal Projects</div>
+            <div class="scroll-container no-margin-bottom">    
+              <div class="projects-intro">
                 I have been developing a series of personal projects using Unity3D and Blender.
               </div>
-              <div id="projects-container" style="display: flex; flex-direction: column; gap: 15px; width: 100%;"></div>
+              <div id="projects-container" class="dynamic-projects"></div>
             </div>
           </div>
 
@@ -143,18 +143,18 @@
     </div>
 
     <!-- Contact Modal -->
-    <div class="contact modal" style="max-width: 700px;">
+    <div class="contact modal standard-modal">
       
       <div class="title-bar">
-        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
-          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+        <div class="title-bar-inner">
+          <img src="public/images/icon.png" alt="Icon" class="title-icon" />
           <div class="title-bar-text">Contact me!</div>
         </div>
         <div class="modal-exit-button main-exit">X</div>
       </div>
 
       <div class="window-body">
-        <div class="email-container" style="justify-content: center; margin-top: 20px; margin-bottom: 20px;">
+        <div class="email-container">
           <input type="text" value="JuanCarlosGMgo@gmail.com" id="email" readonly>
           <button id="copy-email-button" class="retro-button copy-button">Copy email</button>
         </div>
@@ -177,18 +177,18 @@
     </div>
 
     <!-- Credits Modal -->
-    <div class="credits modal" style="max-width: 700px;">
+    <div class="credits modal standard-modal">
       
       <div class="title-bar">
-        <div style="display: flex; align-items: center; gap: 5px; padding-left: 5px;">
-          <img src="public/images/icon.png" alt="Icon" style="width: 16px; height: 16px;" />
+        <div class="title-bar-inner">
+          <img src="public/images/icon.png" alt="Icon" class="title-icon" />
           <div class="title-bar-text">Credits</div>
         </div>
         <div class="modal-exit-button main-exit">X</div>
       </div>
       
       <div class="window-body">
-        <div class="description" id="credits-container" style="margin-left: 2%;"></div>
+        <div class="description" id="credits-container"></div>
       </div>
     </div>    
 

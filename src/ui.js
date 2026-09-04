@@ -1,5 +1,5 @@
 import gsap from 'gsap';
-import { studiesData, certificatesData, projectsData, creditsData } from './data.js';
+import { studiesData, certificatesData, workData, projectsData, creditsData } from './data.js';
 
 export const modals = {
   about: document.querySelector(".modal.about"),
@@ -23,6 +23,7 @@ export function initUI(onModalCloseCallback) {
 
   renderStudies();
   renderCertificates();
+  renderWork();
   renderProjects();
   renderCredits();
 }
@@ -95,6 +96,26 @@ function renderCertificates() {
           ${item.url ? `<a href="${item.url}" target="_blank">${item.title}</a>` : item.title}
         </div>
         <div class="description">${item.issuer}</div>
+        <div class="more-description">${item.details}</div>
+        <hr style="margin: auto">
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderWork() {
+  const container = document.getElementById("experience-container");
+  if (!container) return;
+
+  container.innerHTML = workData.map(item => `
+    <div class="card">
+      <div class="image">
+        <img class="certificate-img" src="${item.image}" alt="${item.title}" />
+      </div>
+      <div class="content">
+        <div class="title">${item.title}</div>
+        <div class="description">${item.company}</div>
+        <div class="more-description">${item.period}</div>
         <div class="more-description">${item.details}</div>
         <hr style="margin: auto">
       </div>
