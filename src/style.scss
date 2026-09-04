@@ -52,7 +52,10 @@ canvas {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100%;
+  
+  width: 90%; 
+  max-height: 90vh;
+  
   transform: translate(-50%, -50%);
   font-size: 32px;
   z-index: 999;
@@ -87,6 +90,10 @@ canvas {
 
 .window-body {
   padding: 10px;
+  
+  max-height: calc(90vh - 40px);
+  overflow-y: auto; 
+  overflow-x: hidden;
 }
 
 .modal-exit-button {
@@ -130,15 +137,18 @@ canvas {
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .scroll-container {
-  width: 700px;
-  height: 500px;
+  width: 100%; 
+  flex: 1;
+  min-width: 300px;
+  max-height: 500px;
+  
   padding: 15px;
   overflow-y: auto;
-  margin-right: 1%;
-  margin-bottom: 1%;
+  margin-bottom: 10px;
   
   background-color: #ffffff;
   border: 2px solid;
@@ -153,6 +163,7 @@ canvas {
   display: flex;
   align-items: flex-start;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .image {
@@ -220,13 +231,13 @@ canvas {
 }
 
 input {
-  font-size: 0.5em;
+  font-size: 1.25rem;
   width: 250px;
   height: 50px;
+  max-width: 250px;
   text-align: center;
   font-family: inherit;
   
-  /* Inset 3D border */
   background-color: #ffffff;
   border: 2px solid;
   border-top-color: #808080;
@@ -237,5 +248,53 @@ input {
   
   &:focus {
     outline: none;
+  }
+}
+
+.retro-button {
+  font-family: inherit;
+  font-size: 0.9em;
+  font-weight: bold;
+  padding: 5px 15px;
+  background-color: #c0c0c0;
+  
+  border: 2px solid;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  border-right-color: #000000;
+  border-bottom-color: #000000;
+  box-shadow: inset 1px 1px 0px #dfdfdf, inset -1px -1px 0px #808080;
+  
+  cursor: pointer;
+  color: #222;
+}
+
+.retro-button:active {
+  border-top-color: #000000;
+  border-left-color: #000000;
+  border-right-color: #ffffff;
+  border-bottom-color: #ffffff;
+  box-shadow: inset 1px 1px 0px #808080, inset -1px -1px 0px #dfdfdf;
+  padding: 6px 14px 4px 16px;
+}
+
+@media (max-width: 768px) {
+  .scroll-wrapper {
+    flex-direction: column;
+  }
+  
+  .card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .image {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+  
+  .content {
+    max-width: 100%;
   }
 }

@@ -3,43 +3,73 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>JCdaisuki</title>
   </head>
   <body>
     <div id="app"></div>
 
     <!-- About Modal -->
-    <div class="about modal" style="max-width: 1400px;"> 
-      
+    <div class="about modal" style="max-width: 600px;">
       <div class="title-bar">
         <div class="title-bar-text">About me</div>
-        <div class="modal-exit-button">X</div>
+        <div class="modal-exit-button main-exit">X</div>
       </div>
 
       <div class="window-body">
-        <div class="scroll-wrapper">
-          <div class="description" style="margin-left: 1%; text-align: justify; width: 500px;">
-            Computer Science graduate at the Universidad de Jaén with specialized in software development and game programming using Unity (C#).
-            <br><br>
-            With hands-on experience in web applications using React, JavaScript and Agile methodologies.
-            <br><br>
-            Thank you for checking out my website!
-            <br><br>
-            
-            <img src="public/images/yo.jpg" style="display: block; margin: 3% auto; width: 250px; height: 250px;" />          
-          </div>
-
-          <!-- Studies -->
-          <div class="scroll-container">
-            <div class="modal-title">Studies</div>
-            <div id="studies-container"></div>
-          </div>
+        <div class="description" style="text-align: justify; padding: 10px;">
+          Computer Science graduate at the Universidad de Jaén with specialized in software development and game programming using Unity (C#).
+          <br><br>
+          With hands-on experience in web applications using React, JavaScript and Agile methodologies.
+          <br><br>
+          Thank you for checking out my website!
+          <br><br>
+          <img src="public/images/yo.jpg" style="display: block; margin: 3% auto; width: 250px; height: 250px;" />
+        </div>
         
-          <!-- Certificates -->
-          <div class="scroll-container">
-            <div class="modal-title">Certificates</div>
-            <div id="certificates-container"></div>
-          </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 15px; padding: 0 10px;">
+          <button id="btn-studies" class="retro-btn">Studies</button>
+          <button id="btn-certificates" class="retro-btn">Certificates</button>
+          <button id="btn-experience" class="retro-btn">Experience</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Studies -->
+    <div id="modal-studies" class="modal" style="max-width: 700px; z-index: 1001;">
+      <div class="title-bar">
+        <div class="title-bar-text">Studies</div>
+        <div class="modal-exit-button sub-exit">X</div>
+      </div>
+      <div class="window-body">
+        <div class="scroll-container" style="width: 100%;">
+          <div id="studies-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certificates -->
+    <div id="modal-certificates" class="modal" style="max-width: 700px; z-index: 1001;">
+      <div class="title-bar">
+        <div class="title-bar-text">Certificates</div>
+        <div class="modal-exit-button sub-exit">X</div>
+      </div>
+      <div class="window-body">
+        <div class="scroll-container" style="width: 100%;">
+          <div id="certificates-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience -->
+    <div id="modal-experience" class="modal" style="max-width: 700px; z-index: 1001;">
+      <div class="title-bar">
+        <div class="title-bar-text">Experience</div>
+        <div class="modal-exit-button sub-exit">X</div>
+      </div>
+      <div class="window-body">
+        <div class="scroll-container" style="width: 100%;">
+          <!-- experience data  -->
+          <div id="experience-data-container"></div>
         </div>
       </div>
     </div>
