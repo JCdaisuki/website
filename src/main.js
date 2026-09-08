@@ -8,9 +8,35 @@ import confetti from "canvas-confetti";
 import { textureMap } from './data.js';
 import { setupScene } from './setup.js';
 import { modals, initUI, showModal } from './ui.js';
+import { glassMaterial, waterMaterial, waterNormalMap, createTextureMaterial } from './utils/materials.js';
 
 const canvas = document.querySelector("#experience-canvas");
 const { scene, camera, renderer, controls, sizes } = setupScene(canvas);
+
+const clock = new THREE.Clock();
+let mixer = null;
+
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
+scene.add(ambientLight);
+
+const dirLight = new THREE.DirectionalLight(0xffffff, 2.0);
+dirLight.position.set(5, 12, 8);
+dirLight.castShadow = true;
+dirLight.shadow.mapSize.width = 2048;
+dirLight.shadow.mapSize.height = 2048;
+dirLight.shadow.camera.near = 0.5;
+dirLight.shadow.camera.far = 50;
+dirLight.shadow.camera.left = -15;
+dirLight.shadow.camera.right = 15;
+dirLight.shadow.camera.top = 15;
+dirLight.shadow.camera.bottom = -15;
+scene.add(dirLight);
+
+const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.0);
+scene.add(hemisphereLight);
 
 let baseFov = camera.fov || 45;
 
@@ -97,6 +123,15 @@ loader.setDRACOLoader(dracoLoader);
 loader.load("/models/scene.glb", (glb) => {
   let glbCamera = null;
 
+  if (glb.animations && glb.animations.length > 0) {
+    mixer = new THREE.AnimationMixer(glb.scene);
+    glb.animations.forEach((clip) => {
+      const action = mixer.clipAction(clip);
+      action.setLoop(THREE.LoopRepeat);
+      action.play();
+    });
+  }
+
   glb.scene.traverse(child => {
     if (child.isMesh) { 
       if (child.name.includes("Raycaster")) {
@@ -107,13 +142,49 @@ loader.load("/models/scene.glb", (glb) => {
         child.userData.isAnimating = false;
       }
 
-      Object.keys(textureMap).forEach((key) => {
-        if (child.name.includes(key)) {
-          child.material = new THREE.MeshBasicMaterial({
-            map: loadedTextures.day[key],
-          });
+      const isGlass = child.material && (
+        Array.isArray(child.material)
+          ? child.material.some(m => m.name && m.name.toLowerCase().includes('glass'))
+          : (child.material.name && child.material.name.toLowerCase().includes('glass'))
+      ) || child.name.toLowerCase().includes('glass');
+
+      const isWater = child.material && (
+        Array.isArray(child.material)
+          ? child.material.some(m => m.name && m.name.toLowerCase().includes('water'))
+          : (child.material.name && child.material.name.toLowerCase().includes('water'))
+      ) || child.name.toLowerCase().includes('water');
+
+      const isSkyOrSphere = child.name.toLowerCase().includes('sky') || 
+                            child.name.toLowerCase().includes('sphere') || 
+                            child.name.toLowerCase().includes('dome') || 
+                            child.name.toLowerCase().includes('background');
+
+      if (isGlass) {
+        child.material = glassMaterial;
+      } else if (isWater) {
+        child.material = waterMaterial;
+      } else {
+        let matchedTexture = false;
+        Object.keys(textureMap).forEach((key) => {
+          if (child.name.includes(key)) {
+            child.material = createTextureMaterial(loadedTextures.day[key]);
+            matchedTexture = true;
+          }
+        });
+
+        if (!matchedTexture && child.material && child.material.map) {
+          child.material = createTextureMaterial(child.material.map);
         }
-      });
+      }
+
+      if (isSkyOrSphere && child.material) {
+        child.material.side = THREE.BackSide;
+      }
+
+      if (!isSkyOrSphere) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
     }
 
     if (child.isCamera) {
@@ -262,6 +333,16 @@ window.addEventListener("click", (e) => {
 
 const render = () => {
   controls.update();
+
+  const delta = clock.getDelta();
+  if (mixer) {
+    mixer.update(delta);
+  }
+
+  if (waterNormalMap) {
+    waterNormalMap.offset.x += 0.0005;
+    waterNormalMap.offset.y += 0.0003;
+  }
 
   if (!isModalOpen) {
     raycaster.setFromCamera(pointer, camera);
