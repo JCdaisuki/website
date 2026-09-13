@@ -14,6 +14,12 @@ import { glassMaterial, waterMaterial, metalMaterial, waterNormalMap, createText
 const canvas = document.querySelector("#experience-canvas");
 const { scene, camera, renderer, controls, sizes } = setupScene(canvas);
 
+camera.far = 1000;
+camera.position.set(48.48, 16.58, 2.25);
+
+controls.target.set(-1.00, 2.80, 1.82);
+controls.maxDistance = 51.37;
+
 const pmremGenerator = new THREE.PMREMGenerator(renderer);
 scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
 if ('environmentIntensity' in scene) {
@@ -130,8 +136,6 @@ loader.setDRACOLoader(dracoLoader);
 const metalRegex = /\b(metal|chrome|steel|iron|metallic|robot|gir)\b/i;
 
 loader.load("/models/scene.glb", (glb) => {
-  let glbCamera = null;
-
   if (glb.animations && glb.animations.length > 0) {
     mixer = new THREE.AnimationMixer(glb.scene);
     glb.animations.forEach((clip) => {
@@ -140,8 +144,6 @@ loader.load("/models/scene.glb", (glb) => {
       action.play();
     });
   }
-
-  glb.scene.updateMatrixWorld(true);
 
   glb.scene.traverse(child => {
     if (child.isMesh) { 
@@ -191,25 +193,16 @@ loader.load("/models/scene.glb", (glb) => {
         child.receiveShadow = true;
       }
     }
-
-    if (child.isCamera) {
-      glbCamera = child;
-    }
   });
 
   scene.add(glb.scene);
 
-  if (glbCamera) {
-    camera.position.copy(glbCamera.position);
-    camera.rotation.copy(glbCamera.rotation);
-    
-    baseFov = glbCamera.fov || 45;
-    
-    updateCameraPosition();
+  camera.position.set(48.48, 16.58, 2.25);
+  controls.target.set(-1.00, 2.80, 1.82);
+  controls.maxDistance = 51.37;
 
-    camera.scale.copy(glbCamera.scale);
-    camera.updateProjectionMatrix();
-  }
+  updateCameraPosition();
+  controls.update();
 });
 
 const raycaster = new THREE.Raycaster();
