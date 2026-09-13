@@ -133,7 +133,7 @@ dracoLoader.setDecoderPath('../node_modules/three/examples/jsm/libs/draco/');
 const loader = new GLTFLoader();
 loader.setDRACOLoader(dracoLoader);
 
-const metalRegex = /\b(metal|robot)\b/i;
+const metalRegex = /\b(metal|chrome|steel|iron|metallic|robot|gir)\b/i;
 
 loader.load("/models/scene.glb", (glb) => {
   if (glb.animations && glb.animations.length > 0) {
@@ -147,7 +147,11 @@ loader.load("/models/scene.glb", (glb) => {
 
   glb.scene.traverse(child => {
     if (child.isMesh) { 
-      if (child.name.includes("Raycaster")) {
+      const meshName = child.name ? child.name.toLowerCase() : '';
+      const parentName = child.parent && child.parent.name ? child.parent.name.toLowerCase() : '';
+      const fullHierarchyName = `${meshName} ${parentName}`;
+
+      if (fullHierarchyName.includes("raycaster")) {
         raycasterObjects.push(child);
         child.userData.initialPosition = new THREE.Vector3().copy(child.position);
         child.userData.initialScale = new THREE.Vector3().copy(child.scale);
@@ -155,19 +159,26 @@ loader.load("/models/scene.glb", (glb) => {
         child.userData.isAnimating = false;
       }
 
-      const meshName = child.name ? child.name.toLowerCase() : '';
       const matNames = Array.isArray(child.material)
         ? child.material.map(m => m.name ? m.name.toLowerCase() : '').join(' ')
         : (child.material && child.material.name ? child.material.name.toLowerCase() : '');
       
-      const fullName = `${meshName} ${matNames}`;
+      const fullName = `${fullHierarchyName} ${matNames}`;
 
       const isCharacterOrRobot = fullName.includes('gir') || fullName.includes('robot');
 
-      const isGlass = !isCharacterOrRobot && (fullName.includes('glass'));
+      const isGlass = !isCharacterOrRobot && (
+        fullName.includes('glass') || 
+        fullName.includes('window') || 
+        fullName.includes('bottle') || 
+        fullName.includes('jar') || 
+        fullName.includes('crystal') || 
+        fullName.includes('lens') ||
+        fullName.includes('translucent')
+      );
       const isWater = fullName.includes('water');
       const isMetal = isCharacterOrRobot || metalRegex.test(fullName);
-      const isSkyOrSphere = fullName.includes('background');
+      const isSkyOrSphere = fullName.includes('sky') || fullName.includes('sphere') || fullName.includes('dome') || fullName.includes('background');
 
       if (isGlass) {
         const mat = glassMaterial.clone();
@@ -252,9 +263,6 @@ window.addEventListener("touchend", (event) => {
     pointer.x = (event.changedTouches[0].clientX / sizes.width) * 2 - 1;
     pointer.y = -(event.changedTouches[0].clientY / sizes.height) * 2 + 1;
 
-    raycaster.setFromCamera(pointer, camera);
-    currentIntersects = raycaster.intersectObjects(raycasterObjects);
-
     handleRaycasterInteraction();
   }
 }, { passive: true });
@@ -265,18 +273,22 @@ window.addEventListener("click", () => {
 });
 
 function handleRaycasterInteraction() {
-  if (currentIntersects.length > 0) {
-    const object = currentIntersects[0].object;
+  raycaster.setFromCamera(pointer, camera);
+  const intersects = raycaster.intersectObjects(raycasterObjects, true);
 
-    if (object.name.includes('About')) {
+  if (intersects.length > 0) {
+    const object = intersects[0].object;
+    const nameLower = (object.name + " " + (object.parent ? object.parent.name : "")).toLowerCase();
+
+    if (nameLower.includes('about')) {
       showModal(modals.about, onModalOpen);
-    } else if (object.name.includes('projects')) {
+    } else if (nameLower.includes('project')) {
       showModal(modals.projects, onModalOpen);
-    } else if (object.name.includes('Contact')) {
+    } else if (nameLower.includes('contact')) {
       showModal(modals.contact, onModalOpen);
-    } else if (object.name.includes('Credits')) {
+    } else if (nameLower.includes('credit')) {
       showModal(modals.credits, onModalOpen);
-    } else if (object.name.includes('JCdaisuki')) {
+    } else if (nameLower.includes('jcdaisuki')) {
       confetti({ particleCount: 300, spread: 90, origin: { x: 1, y: 0.9 } });
       confetti({ particleCount: 300, spread: 90, origin: { x: 0, y: 0.9 } });
     }
@@ -366,7 +378,7 @@ const render = () => {
 
   if (!isModalOpen) {
     raycaster.setFromCamera(pointer, camera);
-    currentIntersects = raycaster.intersectObjects(raycasterObjects);
+    currentIntersects = raycaster.intersectObjects(raycasterObjects, true);
 
     if (currentIntersects.length > 0) {
       const currentIntersectObject = currentIntersects[0].object;
