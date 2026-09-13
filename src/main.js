@@ -8,7 +8,7 @@ import confetti from "canvas-confetti";
 
 import { textureMap } from './data.js';
 import { setupScene } from './setup.js';
-import { modals, initUI, showModal } from './ui.js';
+import { modals, initUI, showModal, showSubModal, hideSubModal } from './ui.js';
 import { glassMaterial, waterMaterial, metalMaterial, waterNormalMap, createTextureMaterial } from './utils/materials.js';
 
 const canvas = document.querySelector("#experience-canvas");
@@ -94,13 +94,13 @@ const onModalClose = () => {
   isModalOpen = false;
   controls.enabled = true;
   
-  const modalStudies = document.getElementById("modal-studies");
-  const modalCert = document.getElementById("modal-certificates");
-  const modalExp = document.getElementById("modal-experience");
-  
-  if (modalStudies) modalStudies.style.display = "none";
-  if (modalCert) modalCert.style.display = "none";
-  if (modalExp) modalExp.style.display = "none";
+  ["modal-studies", "modal-certificates", "modal-experience"].forEach(id => {
+    const modal = document.getElementById(id);
+    if (modal) {
+      modal.style.display = "none";
+      gsap.set(modal, { opacity: 0 });
+    }
+  });
 };
 
 document.addEventListener('wheel', function(e) {
@@ -113,7 +113,7 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-initUI(onModalClose);
+initUI(onModalClose, onModalOpen);
 
 const textureLoader = new THREE.TextureLoader();
 const loadedTextures = { day: {} };
@@ -128,12 +128,12 @@ Object.entries(textureMap).forEach(([key, paths]) => {
 const raycasterObjects = [];
 
 const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath('../node_modules/three/examples/jsm/libs/draco/');
+dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/gltf/');
 
 const loader = new GLTFLoader();
 loader.setDRACOLoader(dracoLoader);
 
-const metalRegex = /\b(metal|chrome|steel|iron|metallic|robot|gir)\b/i;
+const metalRegex = /\b(metal)\b/i;
 
 loader.load("/models/scene.glb", (glb) => {
   if (glb.animations && glb.animations.length > 0) {
@@ -167,18 +167,10 @@ loader.load("/models/scene.glb", (glb) => {
 
       const isCharacterOrRobot = fullName.includes('gir') || fullName.includes('robot');
 
-      const isGlass = !isCharacterOrRobot && (
-        fullName.includes('glass') || 
-        fullName.includes('window') || 
-        fullName.includes('bottle') || 
-        fullName.includes('jar') || 
-        fullName.includes('crystal') || 
-        fullName.includes('lens') ||
-        fullName.includes('translucent')
-      );
+      const isGlass = !isCharacterOrRobot && (fullName.includes('glass'));
       const isWater = fullName.includes('water');
       const isMetal = isCharacterOrRobot || metalRegex.test(fullName);
-      const isSkyOrSphere = fullName.includes('sky') || fullName.includes('sphere') || fullName.includes('dome') || fullName.includes('background');
+      const isSkyOrSphere = fullName.includes('Background');
 
       if (isGlass) {
         const mat = glassMaterial.clone();
@@ -244,15 +236,15 @@ let currentIntersects = [];
 let currentHoveredObject = null;
 
 window.addEventListener('mousemove', (event) => {
-  pointer.x = (event.clientX / sizes.width) * 2 - 1;
-  pointer.y = -(event.clientY / sizes.height) * 2 + 1;
+  pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+  pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
 });
 
 window.addEventListener("touchstart", (event) => {
   if (isModalOpen) return;
   if (event.touches && event.touches.length > 0) {
-    pointer.x = (event.touches[0].clientX / sizes.width) * 2 - 1;
-    pointer.y = -(event.touches[0].clientY / sizes.height) * 2 + 1;
+    pointer.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+    pointer.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
   }
 }, { passive: true });
 
@@ -260,8 +252,8 @@ window.addEventListener("touchend", (event) => {
   if (isModalOpen) return;
   
   if (event.changedTouches && event.changedTouches.length > 0) {
-    pointer.x = (event.changedTouches[0].clientX / sizes.width) * 2 - 1;
-    pointer.y = -(event.changedTouches[0].clientY / sizes.height) * 2 + 1;
+    pointer.x = (event.changedTouches[0].clientX / window.innerWidth) * 2 - 1;
+    pointer.y = -(event.changedTouches[0].clientY / window.innerHeight) * 2 + 1;
 
     handleRaycasterInteraction();
   }
@@ -317,37 +309,31 @@ function playHoverAnimation(object, isHovering) {
   }
 }
 
-window.addEventListener("click", (e) => {
-  if (e.target.closest("#button-studies")) {
+document.addEventListener("click", (e) => {
+  const btnStudies = e.target.closest("#button-studies");
+  if (btnStudies) {
     e.preventDefault();
-    e.stopPropagation(); 
+    e.stopPropagation();
     const modal = document.getElementById("modal-studies");
-    if (modal) {
-        modal.style.display = "block";
-        modal.style.zIndex = "9999";
-    }
+    if (modal) showSubModal(modal);
     return;
   }
-  
-  if (e.target.closest("#button-certificates")) {
+
+  const btnCert = e.target.closest("#button-certificates");
+  if (btnCert) {
     e.preventDefault();
     e.stopPropagation();
     const modal = document.getElementById("modal-certificates");
-    if (modal) {
-        modal.style.display = "block";
-        modal.style.zIndex = "9999";
-    }
+    if (modal) showSubModal(modal);
     return;
   }
-  
-  if (e.target.closest("#button-experience")) {
+
+  const btnExp = e.target.closest("#button-experience");
+  if (btnExp) {
     e.preventDefault();
     e.stopPropagation();
     const modal = document.getElementById("modal-experience");
-    if (modal) {
-        modal.style.display = "block";
-        modal.style.zIndex = "9999";
-    }
+    if (modal) showSubModal(modal);
     return;
   }
 
@@ -356,12 +342,10 @@ window.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
     const parentModal = exitButton.closest("#modal-studies, #modal-certificates, #modal-experience");
-    if (parentModal) {
-        parentModal.style.display = "none";
-    }
+    if (parentModal) hideSubModal(parentModal);
     return;
   }
-}, true);
+});
 
 const render = () => {
   controls.update();

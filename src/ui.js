@@ -8,7 +8,7 @@ export const modals = {
   credits: document.querySelector(".modal.credits")
 };
 
-function initHamburgerMenu() {
+function initHamburgerMenu(onModalOpenCallback) {
   const hamburgerButton = document.getElementById("hamburger-button");
   const hamburgerDropdown = document.getElementById("hamburger-dropdown");
 
@@ -25,7 +25,7 @@ function initHamburgerMenu() {
       const targetModal = modals[modalKey] || document.getElementById(`modal-${modalKey}`);
       
       if (targetModal) {
-        showModal(targetModal);
+        showModal(targetModal, onModalOpenCallback);
       }
       
       hamburgerDropdown.classList.remove("active");
@@ -47,8 +47,8 @@ function initAudioControl() {
 
   if (!bgMusic || !audioButton || !audioIcon) return;
 
-  const iconOn = "public/images/sound_on.png";
-  const iconOff = "public/images/sound_off.png";
+  const iconOn = "/images/sound_on.png";
+  const iconOff = "/images/sound_off.png";
 
   bgMusic.muted = false;
 
@@ -76,11 +76,15 @@ function initAudioControl() {
   });
 }
 
-export function initUI(onModalCloseCallback) {
+export function initUI(onModalCloseCallback, onModalOpenCallback) {
   document.querySelectorAll(".modal-exit-button").forEach(button => {
     button.addEventListener("click", (e) => {
-      const modal = e.target.closest(".modal");
-      hideModal(modal, onModalCloseCallback);
+      const modal = e.target.closest(".modal, [id^='modal-']");
+      if (modal && (modal.id === "modal-studies" || modal.id === "modal-certificates" || modal.id === "modal-experience")) {
+        hideSubModal(modal);
+      } else {
+        hideModal(modal, onModalCloseCallback);
+      }
     });
   });
 
@@ -89,7 +93,7 @@ export function initUI(onModalCloseCallback) {
     copyButton.addEventListener("click", copyText);
   }
 
-  initHamburgerMenu();
+  initHamburgerMenu(onModalOpenCallback);
   initAudioControl();
 
   renderStudies();
@@ -107,6 +111,7 @@ export const showModal = (modal, onModalOpenCallback) => {
   modal.style.display = "block";
   document.body.style.cursor = "default";
 
+  gsap.killTweensOf(modal);
   gsap.set(modal, { opacity: 0 });
   gsap.to(modal, { opacity: 1, duration: 0.5 });
 };
@@ -116,9 +121,31 @@ export const hideModal = (modal, onModalCloseCallback) => {
 
   if (onModalCloseCallback) onModalCloseCallback();
 
+  gsap.killTweensOf(modal);
   gsap.to(modal, {
     opacity: 0,
     duration: 0.5,
+    onComplete: () => {
+      modal.style.display = "none";
+    }
+  });
+};
+
+export const showSubModal = (modal) => {
+  if (!modal) return;
+  modal.style.display = "block";
+  modal.style.zIndex = "9999";
+  gsap.killTweensOf(modal);
+  gsap.set(modal, { opacity: 0 });
+  gsap.to(modal, { opacity: 1, duration: 0.3 });
+};
+
+export const hideSubModal = (modal) => {
+  if (!modal) return;
+  gsap.killTweensOf(modal);
+  gsap.to(modal, {
+    opacity: 0,
+    duration: 0.3,
     onComplete: () => {
       modal.style.display = "none";
     }
