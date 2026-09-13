@@ -133,7 +133,7 @@ dracoLoader.setDecoderPath('../node_modules/three/examples/jsm/libs/draco/');
 const loader = new GLTFLoader();
 loader.setDRACOLoader(dracoLoader);
 
-const metalRegex = /\b(metal|chrome|steel|iron|metallic|robot|gir)\b/i;
+const metalRegex = /\b(metal|robot)\b/i;
 
 loader.load("/models/scene.glb", (glb) => {
   if (glb.animations && glb.animations.length > 0) {
@@ -155,21 +155,42 @@ loader.load("/models/scene.glb", (glb) => {
         child.userData.isAnimating = false;
       }
 
-      const nameLower = child.name.toLowerCase();
-      const isCharacterOrRobot = nameLower.includes('gir') || nameLower.includes('robot');
+      const meshName = child.name ? child.name.toLowerCase() : '';
+      const matNames = Array.isArray(child.material)
+        ? child.material.map(m => m.name ? m.name.toLowerCase() : '').join(' ')
+        : (child.material && child.material.name ? child.material.name.toLowerCase() : '');
+      
+      const fullName = `${meshName} ${matNames}`;
 
-      const isMirrored = child.matrixWorld.determinant() < 0;
-      const targetSide = isMirrored ? THREE.BackSide : THREE.FrontSide;
+      const isCharacterOrRobot = fullName.includes('gir') || fullName.includes('robot');
 
-      const isGlass = !isCharacterOrRobot && nameLower.includes('glass');
-      const isWater = nameLower.includes('water');
-      const isMetal = isCharacterOrRobot || metalRegex.test(nameLower);
-      const isSkyOrSphere = nameLower.includes('sky') || nameLower.includes('sphere') || nameLower.includes('dome') || nameLower.includes('background');
+      const isGlass = !isCharacterOrRobot && (fullName.includes('glass'));
+      const isWater = fullName.includes('water');
+      const isMetal = isCharacterOrRobot || metalRegex.test(fullName);
+      const isSkyOrSphere = fullName.includes('background');
 
       if (isGlass) {
-        child.material = glassMaterial.clone();
+        const mat = glassMaterial.clone();
+        mat.transparent = true;
+        mat.opacity = 0.35;
+        mat.depthWrite = false;
+        mat.depthTest = true;
+        mat.side = THREE.DoubleSide;
+        mat.needsUpdate = true;
+        
+        child.material = mat;
+        child.renderOrder = 2;
       } else if (isWater) {
-        child.material = waterMaterial.clone();
+        const mat = waterMaterial.clone();
+        mat.transparent = true;
+        mat.opacity = 0.85;
+        mat.depthWrite = false;
+        mat.depthTest = true;
+        mat.side = THREE.DoubleSide;
+        mat.needsUpdate = true;
+        
+        child.material = mat;
+        child.renderOrder = 2;
       } else if (child.material) {
         const materials = Array.isArray(child.material) ? child.material : [child.material];
 
@@ -178,13 +199,14 @@ loader.load("/models/scene.glb", (glb) => {
           mat.opacity = 1.0;
           mat.depthWrite = true;
           mat.depthTest = true;
-          mat.side = isSkyOrSphere ? THREE.BackSide : targetSide;
+          mat.side = isSkyOrSphere ? THREE.BackSide : THREE.DoubleSide;
 
           if (isMetal) {
             mat.metalness = 0.75;
             mat.roughness = 0.35;
             mat.envMapIntensity = 0.5;
           }
+          mat.needsUpdate = true;
         });
       }
 

@@ -38,19 +38,18 @@ function createWaterNormalMap() {
 export const waterNormalMap = createWaterNormalMap();
 
 export const glassMaterial = new THREE.MeshPhysicalMaterial({
-  color: 0x66c2ff,
+  color: 0x44aaff,
   roughness: 0.1,
-  metalness: 0.0,
-  transmission: 0.85,
-  thickness: 0.6,
-  ior: 1.52,
+  metalness: 0.1,
+  transmission: 0.3,
   transparent: true,
-  opacity: 0.6,
-  clearcoat: 0.5,
+  opacity: 0.35,
+  depthWrite: false,
+  depthTest: true,
+  clearcoat: 1.0,
   clearcoatRoughness: 0.1,
-  reflectivity: 0.5,
-  attenuationColor: new THREE.Color(0x0088ff),
-  attenuationDistance: 0.6
+  reflectivity: 0.9,
+  side: THREE.DoubleSide
 });
 
 export const waterMaterial = new THREE.MeshPhysicalMaterial({
@@ -61,14 +60,16 @@ export const waterMaterial = new THREE.MeshPhysicalMaterial({
   thickness: 4.5,
   ior: 1.333,
   transparent: true,
-  opacity: 0.92,
+  opacity: 0.85,
+  depthWrite: false,
   clearcoat: 0.6,
   clearcoatRoughness: 0.1,
   reflectivity: 0.6,
   attenuationColor: new THREE.Color(0x001026),
   attenuationDistance: 0.35,
   normalMap: waterNormalMap,
-  normalScale: new THREE.Vector2(0.5, 0.5)
+  normalScale: new THREE.Vector2(0.5, 0.5),
+  side: THREE.DoubleSide
 });
 
 export const metalMaterial = new THREE.MeshStandardMaterial({
