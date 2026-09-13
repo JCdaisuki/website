@@ -2,16 +2,23 @@ import './style.scss';
 import * as THREE from 'three';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import gsap from "gsap";
 import confetti from "canvas-confetti";
 
 import { textureMap } from './data.js';
 import { setupScene } from './setup.js';
 import { modals, initUI, showModal } from './ui.js';
-import { glassMaterial, waterMaterial, waterNormalMap, createTextureMaterial } from './utils/materials.js';
+import { glassMaterial, waterMaterial, metalMaterial, waterNormalMap, createTextureMaterial } from './utils/materials.js';
 
 const canvas = document.querySelector("#experience-canvas");
 const { scene, camera, renderer, controls, sizes } = setupScene(canvas);
+
+const pmremGenerator = new THREE.PMREMGenerator(renderer);
+scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
+if ('environmentIntensity' in scene) {
+  scene.environmentIntensity = 0.15;
+}
 
 const clock = new THREE.Clock();
 let mixer = null;
@@ -19,10 +26,10 @@ let mixer = null;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
+const ambientLight = new THREE.AmbientLight(0xffffff, 1.25);
 scene.add(ambientLight);
 
-const dirLight = new THREE.DirectionalLight(0xffffff, 2.0);
+const dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
 dirLight.position.set(5, 12, 8);
 dirLight.castShadow = true;
 dirLight.shadow.mapSize.width = 2048;
@@ -35,7 +42,7 @@ dirLight.shadow.camera.top = 15;
 dirLight.shadow.camera.bottom = -15;
 scene.add(dirLight);
 
-const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.0);
+const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.5);
 scene.add(hemisphereLight);
 
 let baseFov = camera.fov || 45;
@@ -120,6 +127,8 @@ dracoLoader.setDecoderPath('../node_modules/three/examples/jsm/libs/draco/');
 const loader = new GLTFLoader();
 loader.setDRACOLoader(dracoLoader);
 
+const metalRegex = /\b(metal|chrome|steel|iron|metallic|robot|gir)\b/i;
+
 loader.load("/models/scene.glb", (glb) => {
   let glbCamera = null;
 
@@ -132,6 +141,8 @@ loader.load("/models/scene.glb", (glb) => {
     });
   }
 
+  glb.scene.updateMatrixWorld(true);
+
   glb.scene.traverse(child => {
     if (child.isMesh) { 
       if (child.name.includes("Raycaster")) {
@@ -142,43 +153,37 @@ loader.load("/models/scene.glb", (glb) => {
         child.userData.isAnimating = false;
       }
 
-      const isGlass = child.material && (
-        Array.isArray(child.material)
-          ? child.material.some(m => m.name && m.name.toLowerCase().includes('glass'))
-          : (child.material.name && child.material.name.toLowerCase().includes('glass'))
-      ) || child.name.toLowerCase().includes('glass');
+      const nameLower = child.name.toLowerCase();
+      const isCharacterOrRobot = nameLower.includes('gir') || nameLower.includes('robot');
 
-      const isWater = child.material && (
-        Array.isArray(child.material)
-          ? child.material.some(m => m.name && m.name.toLowerCase().includes('water'))
-          : (child.material.name && child.material.name.toLowerCase().includes('water'))
-      ) || child.name.toLowerCase().includes('water');
+      const isMirrored = child.matrixWorld.determinant() < 0;
+      const targetSide = isMirrored ? THREE.BackSide : THREE.FrontSide;
 
-      const isSkyOrSphere = child.name.toLowerCase().includes('sky') || 
-                            child.name.toLowerCase().includes('sphere') || 
-                            child.name.toLowerCase().includes('dome') || 
-                            child.name.toLowerCase().includes('background');
+      const isGlass = !isCharacterOrRobot && nameLower.includes('glass');
+      const isWater = nameLower.includes('water');
+      const isMetal = isCharacterOrRobot || metalRegex.test(nameLower);
+      const isSkyOrSphere = nameLower.includes('sky') || nameLower.includes('sphere') || nameLower.includes('dome') || nameLower.includes('background');
 
       if (isGlass) {
-        child.material = glassMaterial;
+        child.material = glassMaterial.clone();
       } else if (isWater) {
-        child.material = waterMaterial;
-      } else {
-        let matchedTexture = false;
-        Object.keys(textureMap).forEach((key) => {
-          if (child.name.includes(key)) {
-            child.material = createTextureMaterial(loadedTextures.day[key]);
-            matchedTexture = true;
+        child.material = waterMaterial.clone();
+      } else if (child.material) {
+        const materials = Array.isArray(child.material) ? child.material : [child.material];
+
+        materials.forEach(mat => {
+          mat.transparent = false;
+          mat.opacity = 1.0;
+          mat.depthWrite = true;
+          mat.depthTest = true;
+          mat.side = isSkyOrSphere ? THREE.BackSide : targetSide;
+
+          if (isMetal) {
+            mat.metalness = 0.75;
+            mat.roughness = 0.35;
+            mat.envMapIntensity = 0.5;
           }
         });
-
-        if (!matchedTexture && child.material && child.material.map) {
-          child.material = createTextureMaterial(child.material.map);
-        }
-      }
-
-      if (isSkyOrSphere && child.material) {
-        child.material.side = THREE.BackSide;
       }
 
       if (!isSkyOrSphere) {

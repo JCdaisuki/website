@@ -38,40 +38,62 @@ function createWaterNormalMap() {
 export const waterNormalMap = createWaterNormalMap();
 
 export const glassMaterial = new THREE.MeshPhysicalMaterial({
-  color: 0xffffff,
-  roughness: 0.05,
-  metalness: 0.1,
-  transmission: 0.6,
-  thickness: 0.02,
-  ior: 1.1,
+  color: 0x66c2ff,
+  roughness: 0.1,
+  metalness: 0.0,
+  transmission: 0.85,
+  thickness: 0.6,
+  ior: 1.52,
   transparent: true,
-  opacity: 0.35,
-  clearcoat: 1.0,
-  clearcoatRoughness: 0.05,
-  reflectivity: 0.9
+  opacity: 0.6,
+  clearcoat: 0.5,
+  clearcoatRoughness: 0.1,
+  reflectivity: 0.5,
+  attenuationColor: new THREE.Color(0x0088ff),
+  attenuationDistance: 0.6
 });
 
 export const waterMaterial = new THREE.MeshPhysicalMaterial({
-  color: 0x0066cc,
-  roughness: 0.05,
-  metalness: 0.1,
-  transmission: 0.75,
-  thickness: 1.2,
+  color: 0x003b70,
+  roughness: 0.08,
+  metalness: 0.0,
+  transmission: 0.55,
+  thickness: 4.5,
   ior: 1.333,
   transparent: true,
-  opacity: 0.85,
-  clearcoat: 1.0,
+  opacity: 0.92,
+  clearcoat: 0.6,
   clearcoatRoughness: 0.1,
-  reflectivity: 0.9,
+  reflectivity: 0.6,
+  attenuationColor: new THREE.Color(0x001026),
+  attenuationDistance: 0.35,
   normalMap: waterNormalMap,
-  normalScale: new THREE.Vector2(0.35, 0.35)
+  normalScale: new THREE.Vector2(0.5, 0.5)
+});
+
+export const metalMaterial = new THREE.MeshStandardMaterial({
+  color: 0x888888,
+  metalness: 0.75,
+  roughness: 0.35,
+  envMapIntensity: 0.5,
+  transparent: false,
+  opacity: 1.0,
+  depthWrite: true,
+  depthTest: true,
+  side: THREE.FrontSide
 });
 
 export function createTextureMaterial(texture, options = {}) {
   return new THREE.MeshStandardMaterial({
     map: texture,
-    roughness: 0.9, 
-    metalness: 0.0,
+    roughness: 0.8, 
+    metalness: 0.1,
+    envMapIntensity: 0.1,
+    transparent: false,
+    opacity: 1.0,
+    depthWrite: true,
+    depthTest: true,
+    side: THREE.FrontSide,
     ...options
   });
 }
