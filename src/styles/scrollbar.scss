@@ -1,0 +1,48 @@
+@use "variables" as vars;
+
+::-webkit-scrollbar {
+  width: 18px;
+  height: 18px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e0e0e0;
+  border-left: 2px solid vars.$win95-white;
+  border-top: 2px solid vars.$win95-white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: vars.$win95-bg;
+  border: 2px solid;
+  border-top-color: vars.$win95-white;
+  border-left-color: vars.$win95-white;
+  border-right-color: vars.$base-black;
+  border-bottom-color: vars.$base-black;
+
+  &:active {
+    background-color: #a0a0a0;
+    border-top-color: vars.$base-black;
+    border-left-color: vars.$base-black;
+    border-right-color: vars.$win95-white;
+    border-bottom-color: vars.$win95-white;
+  }
+}
+
+::-webkit-scrollbar-button:single-button {
+  background-color: vars.$win95-bg;
+  border: 2px solid;
+  border-top-color: vars.$win95-white;
+  border-left-color: vars.$win95-white;
+  border-right-color: vars.$base-black;
+  border-bottom-color: vars.$base-black;
+  display: block;
+  height: 18px;
+  width: 18px;
+
+  &:active {
+    border-top-color: vars.$base-black;
+    border-left-color: vars.$base-black;
+    border-right-color: vars.$win95-white;
+    border-bottom-color: vars.$win95-white;
+  }
+}

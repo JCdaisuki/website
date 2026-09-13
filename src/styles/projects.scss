@@ -1,0 +1,195 @@
+@use "variables" as vars;
+
+.card {
+  border-bottom: 2px solid vars.$win95-dark;
+  box-shadow: 0px 2px 0px vars.$win95-white;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 8px;
+  }
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+}
+
+.certificate-img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.projects-layout {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.projects-column {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    min-width: 100%;
+  }
+}
+
+.column-title {
+  font-weight: bold;
+  font-size: 0.8em;
+  margin-bottom: 6px;
+}
+
+.projects-intro {
+  margin-bottom: 10px;
+  font-size: 0.6em;
+  text-align: justify;
+  width: 100%;
+  line-height: 1.2;
+}
+
+.dynamic-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.card.project-card {
+  background: vars.$win95-light-bg;
+  padding: 8px 10px;
+  border: 2px solid;
+  border-top-color: vars.$win95-dark;
+  border-left-color: vars.$win95-dark;
+  border-right-color: vars.$win95-white;
+  border-bottom-color: vars.$win95-white;
+  margin-bottom: 0;
+  box-shadow: none;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    text-align: center;
+    padding: 6px;
+  }
+}
+
+.project-image-wrapper {
+  flex-shrink: 0;
+  margin-left: 0;
+  margin-right: 10px;
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+}
+
+.project-img {
+  width: 150px;
+  height: 120px;
+  object-fit: cover;
+  border: 2px solid !important;
+  border-top-color: vars.$base-black !important;
+  border-left-color: vars.$base-black !important;
+  border-right-color: vars.$win95-white !important;
+  border-bottom-color: vars.$win95-white !important;
+
+  @media (max-width: 768px) {
+    width: 75px;
+    height: 60px;
+    max-width: 100%;
+    aspect-ratio: auto;
+  }
+}
+
+.project-content {
+  flex: 1;
+  max-width: 100%;
+}
+
+.project-title {
+  font-size: 0.85em;
+  line-height: 1.1;
+
+  @media (max-width: 768px) {
+    font-size: 0.75em;
+  }
+}
+
+.project-description {
+  margin-top: 3px;
+  font-size: 0.65em;
+  line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: 0.6em;
+  }
+}
+
+.project-link {
+  margin-top: 8px;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.content {
+  max-width: 500px;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+}
+
+.title {
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.description {
+  font-size: 0.7em;
+  color: vars.$softer-black;
+  margin-top: 8px;
+  margin-bottom: 12px;   
+}
+
+.more-description {
+  font-size: 0.5em;
+  color: vars.$even-softer-black;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+#credits-container {
+  margin-left: 2%;
+}

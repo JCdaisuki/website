@@ -1,35 +1,112 @@
-button 
-{
-    --button_radius: 0.75em;
-    --button_color: #ff99f5;
-    --button_outline_color: #6296c0;
-    font-size: 17px;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    border-radius: var(--button_radius);
-    background: var(--button_outline_color);
-  }
+@use "variables" as vars;
+
+.retro-button {
+  font-family: inherit;
+  font-size: 0.8em;
+  font-weight: bold;
+  padding: 4px 10px;
+  background-color: vars.$win95-bg;
   
-  .button_top 
-  {
-    display: block;
-    box-sizing: border-box;
-    border: 2px solid var(--button_outline_color);
-    border-radius: var(--button_radius);
-    padding: 0.75em 1.5em;
-    background: var(--button_color);
-    color: var(--button_outline_color);
-    transform: translateY(-0.2em);
-    transition: transform 0.1s ease;
-  }
+  border: 2px solid;
+  border-top-color: vars.$win95-white;
+  border-left-color: vars.$win95-white;
+  border-right-color: vars.$base-black;
+  border-bottom-color: vars.$base-black;
+  box-shadow: inset 1px 1px 0px vars.$win95-light-bg, inset -1px -1px 0px vars.$win95-dark;
   
-  button:hover .button_top 
-  {
-    transform: translateY(-0.33em);
+  cursor: pointer;
+  color: #222;
+  border-radius: 0;
+
+  &:active {
+    border-top-color: vars.$base-black;
+    border-left-color: vars.$base-black;
+    border-right-color: vars.$win95-white;
+    border-bottom-color: vars.$win95-white;
+    box-shadow: inset 1px 1px 0px vars.$win95-dark, inset -1px -1px 0px vars.$win95-light-bg;
+    padding: 5px 9px 3px 11px;
   }
+
+  &.large-button {
+    font-size: 0.75em;      
+    padding: 6px 10px;     
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    letter-spacing: 0.5px;
+    border-radius: 0 !important;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      font-size: 0.7em;
+      padding: 5px 8px;
+    }
+  }
+}
+
+.modal-exit-button {
+  @include vars.centered;
+  background-color: vars.$win95-bg;
+  border: 2px solid;
+  border-top-color: vars.$win95-white;
+  border-left-color: vars.$win95-white;
+  border-right-color: vars.$base-black;
+  border-bottom-color: vars.$base-black;
+  box-shadow: inset 1px 1px 0px vars.$win95-light-bg, inset -1px -1px 0px vars.$win95-dark;
   
-  button:active .button_top 
-  {
-    transform: translateY(0);
+  font-weight: bold;
+  font-size: 16px;
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+  cursor: pointer;
+  color: black;
+  padding-bottom: 2px;
+  border-radius: 0;
+  
+  &:active {
+    border-top-color: vars.$base-black;
+    border-left-color: vars.$base-black;
+    border-right-color: vars.$win95-white;
+    border-bottom-color: vars.$win95-white;
+    box-shadow: inset 1px 1px 0px vars.$win95-dark, inset -1px -1px 0px vars.$win95-light-bg;
+    padding-top: 2px;
+    padding-left: 2px;
   }
+}
+
+.copy-button {
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 38px;
+  }
+}
+
+.audio-control-wrapper {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  z-index: 1005;
+}
+
+.audio-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 4px;
+
+  img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    border: none !important;
+    pointer-events: none;
+  }
+}
