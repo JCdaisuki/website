@@ -138,10 +138,18 @@ const metalRegex = /\b(metal)\b/i;
 loader.load("/models/scene.glb", (glb) => {
   if (glb.animations && glb.animations.length > 0) {
     mixer = new THREE.AnimationMixer(glb.scene);
+
     glb.animations.forEach((clip) => {
-      const action = mixer.clipAction(clip);
-      action.setLoop(THREE.LoopRepeat);
-      action.play();
+      clip.tracks = clip.tracks.filter((track) => {
+        const nodeName = THREE.PropertyBinding.parseTrackName(track.name).nodeName;
+        return glb.scene.getObjectByName(nodeName) !== undefined;
+      });
+
+      if (clip.tracks.length > 0) {
+        const action = mixer.clipAction(clip);
+        action.setLoop(THREE.LoopRepeat);
+        action.play();
+      }
     });
   }
 
