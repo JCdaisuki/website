@@ -115,7 +115,25 @@ document.addEventListener('keydown', function(e) {
 
 initUI(onModalClose, onModalOpen);
 
-const textureLoader = new THREE.TextureLoader();
+const loadingManager = new THREE.LoadingManager(
+  () => {
+    const loaderScreen = document.getElementById("loader-screen");
+    if (loaderScreen) {
+      loaderScreen.classList.add("fade-out");
+      setTimeout(() => loaderScreen.remove(), 800);
+    }
+  },
+  (itemUrl, itemsLoaded, itemsTotal) => {
+    const progressRatio = (itemsLoaded / itemsTotal) * 100;
+    const progressBar = document.getElementById("progress-bar");
+    const progressText = document.getElementById("progress-text");
+
+    if (progressBar) progressBar.style.width = `${progressRatio}%`;
+    if (progressText) progressText.innerText = `${Math.round(progressRatio)}%`;
+  }
+);
+
+const textureLoader = new THREE.TextureLoader(loadingManager);
 const loadedTextures = { day: {} };
 
 Object.entries(textureMap).forEach(([key, paths]) => {
@@ -127,10 +145,10 @@ Object.entries(textureMap).forEach(([key, paths]) => {
 
 const raycasterObjects = [];
 
-const dracoLoader = new DRACOLoader();
+const dracoLoader = new DRACOLoader(loadingManager);
 dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/gltf/');
 
-const loader = new GLTFLoader();
+const loader = new GLTFLoader(loadingManager);
 loader.setDRACOLoader(dracoLoader);
 
 const metalRegex = /\b(metal)\b/i;
