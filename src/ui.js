@@ -47,8 +47,8 @@ function initAudioControl() {
 
   if (!bgMusic || !audioButton || !audioIcon) return;
 
-  const iconOn = "/images/sound_on.png";
-  const iconOff = "/images/sound_off.png";
+  const iconOn = "/images/sound_on.webp";
+  const iconOff = "/images/sound_off.webp";
 
   bgMusic.muted = false;
 
