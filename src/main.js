@@ -11,6 +11,20 @@ import { setupScene } from './setup.js';
 import { modals, initUI, showModal, showSubModal, hideSubModal } from './ui.js';
 import { glassMaterial, waterMaterial, metalMaterial, waterNormalMap, createTextureMaterial } from './utils/materials.js';
 
+// Global listener in capture phase to intercept asset 404s (<img>, <script>, <link>, etc.)
+window.addEventListener(
+  "error",
+  (event) => {
+    if (event.target && (event.target.tagName === "IMG" || event.target.tagName === "SCRIPT" || event.target.tagName === "LINK")) {
+      console.error("❌ Captured Asset 404 Load Error:", {
+        element: event.target.tagName,
+        failedSrc: event.target.src || event.target.href
+      });
+    }
+  },
+  true
+);
+
 const canvas = document.querySelector("#experience-canvas");
 const { scene, camera, renderer, controls, sizes } = setupScene(canvas);
 
@@ -130,6 +144,9 @@ const loadingManager = new THREE.LoadingManager(
 
     if (progressBar) progressBar.style.width = `${progressRatio}%`;
     if (progressText) progressText.innerText = `${Math.round(progressRatio)}%`;
+  },
+  (url) => {
+    console.error(`❌ Three.js LoadingManager 404 Error: ${url}`);
   }
 );
 

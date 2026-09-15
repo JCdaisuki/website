@@ -98,11 +98,11 @@ export const workData = [
 export const projectsData = [
   {
     title: "Peque Michi",
-    image: "/images/miau.gif"
+    image: "https://i.imgur.com/Uvn5L3R.gif"
   },
   {
     title: "Angel no Requiem",
-    image: "/images/Angel.gif"
+    image: "https://i.imgur.com/C8xInnU.gif"
   }
 ];
 

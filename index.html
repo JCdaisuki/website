@@ -6,16 +6,17 @@
     <title>JCdaisuki</title>
     <link rel="icon" type="image/png" href="/images/icon.webp" />
   </head>
-  <div id="loader-screen">
-  <div class="loader-container">
-    <h2>Loading...</h2>
-    <div class="progress-bar-bg">
-      <div id="progress-bar"></div>
-    </div>
-    <span id="progress-text">0%</span>
-  </div>
-</div>
   <body>
+    <div id="loader-screen">
+      <div class="loader-container">
+        <h2>Loading...</h2>
+        <div class="progress-bar-bg">
+          <div id="progress-bar"></div>
+        </div>
+        <span id="progress-text">0%</span>
+      </div>
+    </div>
+
     <div id="app"></div>
 
     <!-- Hamburger Menu -->
@@ -23,19 +24,19 @@
       <button id="hamburger-button" class="retro-button hamburger-button">
         <span>☰</span> Menu
       </button>
-      
+
       <div id="hamburger-dropdown" class="hamburger-dropdown">
         <div class="menu-item" data-modal="about">About me</div>
         <div class="menu-sub-item" data-modal="studies">• Studies</div>
         <div class="menu-sub-item" data-modal="certificates">• Certificates</div>
         <div class="menu-sub-item" data-modal="experience">• Experience</div>
-        
+
         <div class="menu-divider"></div>
-        
+
         <div class="menu-item" data-modal="projects">My projects</div>
-        
+
         <div class="menu-divider"></div>
-        
+
         <div class="menu-item" data-modal="contact">Contact me</div>
       </div>
     </div>
@@ -63,7 +64,7 @@
           <div class="image">
             <img src="/images/yo.webp" alt="Profile Picture" class="profile-pic" />
           </div>
-          
+
           <div class="profile-buttons">
             <button id="button-studies" class="retro-button large-button">Studies</button>
             <button id="button-certificates" class="retro-button large-button">Certificates</button>
@@ -123,7 +124,6 @@
 
     <!-- Projects Modal -->
     <div class="projects modal large-modal">
-      
       <div class="title-bar">
         <div class="title-bar-inner">
           <img src="/images/icon.webp" alt="Icon" class="title-icon" />
@@ -133,9 +133,7 @@
       </div>
 
       <div class="window-body">
-
         <div class="projects-layout">
-          
           <div class="projects-column">
             <div class="column-title">Commercial Releases</div>
             <div class="scroll-container no-margin-bottom">
@@ -156,7 +154,6 @@
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -169,14 +166,12 @@
               <div id="projects-container" class="dynamic-projects"></div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
 
     <!-- Contact Modal -->
     <div class="contact modal standard-modal">
-      
       <div class="title-bar">
         <div class="title-bar-inner">
           <img src="/images/icon.webp" alt="Icon" class="title-icon" />
@@ -210,7 +205,6 @@
 
     <!-- Credits Modal -->
     <div class="credits modal standard-modal">
-      
       <div class="title-bar">
         <div class="title-bar-inner">
           <img src="/images/icon.webp" alt="Icon" class="title-icon" />
@@ -218,7 +212,7 @@
         </div>
         <div class="modal-exit-button main-exit">X</div>
       </div>
-      
+
       <div class="window-body">
         <div class="description" id="credits-container"></div>
       </div>
@@ -227,8 +221,7 @@
     <div id="experience">
       <canvas id="experience-canvas" class="experience-canvas"></canvas>
     </div>
-    <script type="module" src="/src/main.js"></script>
-  
+
     <audio id="bg-music" src="/audio/bg-music.mp3" loop></audio>
 
     <div class="audio-control-wrapper">
