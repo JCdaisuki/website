@@ -4,6 +4,12 @@ export const textureMap = {
 
 export const studiesData = [
   {
+    image: "/images/utad.webp",
+    title: "U-tad",
+    degree: "Master's degree in 3D Character Modeling",
+    period: "Madrid, Spain </br> Oct. 2026 - Aug. 2027",
+  },
+  {
     image: "/images/uja.webp",
     title: "University of Jaén",
     degree: "Bachelor’s Degree in Computer Science",
